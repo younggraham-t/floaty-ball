@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isGameplayViewPresented = false
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Button("Play Floaty Ball") {
+                isGameplayViewPresented = true
+            }
         }
+        .font(.title)
         .padding()
+        .fullScreenCover(isPresented: $isGameplayViewPresented) {
+            GameplayView()
+        }
     }
 }
 

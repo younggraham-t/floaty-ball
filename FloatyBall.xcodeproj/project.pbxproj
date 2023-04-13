@@ -11,6 +11,11 @@
 		BF20553D29E835CE00B7392B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20553C29E835CE00B7392B /* ContentView.swift */; };
 		BF20553F29E835D300B7392B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF20553E29E835D300B7392B /* Assets.xcassets */; };
 		BF20554229E835D300B7392B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF20554129E835D300B7392B /* Preview Assets.xcassets */; };
+		BF20554929E8395600B7392B /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20554829E8395600B7392B /* Ball.swift */; };
+		BF20554B29E83A5600B7392B /* GameplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20554A29E83A5600B7392B /* GameplayView.swift */; };
+		BF20554D29E83A7600B7392B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20554C29E83A7600B7392B /* GameScene.swift */; };
+		BF20554F29E8403000B7392B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20554E29E8403000B7392B /* Constants.swift */; };
+		BF20555129E840ED00B7392B /* Collectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20555029E840ED00B7392B /* Collectable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +24,11 @@
 		BF20553C29E835CE00B7392B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BF20553E29E835D300B7392B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF20554129E835D300B7392B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BF20554829E8395600B7392B /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
+		BF20554A29E83A5600B7392B /* GameplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameplayView.swift; sourceTree = "<group>"; };
+		BF20554C29E83A7600B7392B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		BF20554E29E8403000B7392B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BF20555029E840ED00B7392B /* Collectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +65,11 @@
 				BF20553C29E835CE00B7392B /* ContentView.swift */,
 				BF20553E29E835D300B7392B /* Assets.xcassets */,
 				BF20554029E835D300B7392B /* Preview Content */,
+				BF20554829E8395600B7392B /* Ball.swift */,
+				BF20554A29E83A5600B7392B /* GameplayView.swift */,
+				BF20554C29E83A7600B7392B /* GameScene.swift */,
+				BF20554E29E8403000B7392B /* Constants.swift */,
+				BF20555029E840ED00B7392B /* Collectable.swift */,
 			);
 			path = FloatyBall;
 			sourceTree = "<group>";
@@ -137,8 +152,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF20554D29E83A7600B7392B /* GameScene.swift in Sources */,
+				BF20554B29E83A5600B7392B /* GameplayView.swift in Sources */,
+				BF20554929E8395600B7392B /* Ball.swift in Sources */,
 				BF20553D29E835CE00B7392B /* ContentView.swift in Sources */,
 				BF20553B29E835CE00B7392B /* FloatyBallApp.swift in Sources */,
+				BF20555129E840ED00B7392B /* Collectable.swift in Sources */,
+				BF20554F29E8403000B7392B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +287,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FloatyBall/Preview Content\"";
+				DEVELOPMENT_TEAM = 3F74VF4VR8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -295,6 +316,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FloatyBall/Preview Content\"";
+				DEVELOPMENT_TEAM = 3F74VF4VR8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
