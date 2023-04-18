@@ -17,7 +17,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     var ball: Ball = Ball()
     
-    var collectables = [CollectableObject]()
+    var collectables = Set<CollectableObject>() //uses set to make removal easier (for memory management)
     
     
 
@@ -29,6 +29,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         
         
         for collectable in collectables {
+//            print(collectable)
             collectable.update(screen: self.frame)
         }
         
@@ -106,6 +107,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             
         case NodeNames.goody.rawValue: // if nonBallNode is a goody remove the goody and increase score/ball size
             remove(node: nonBallNode) //remove(node:) calls remove(coin:) if it's a goody
+            collectables.remove(nonBallNode as! CollectableObject)
             // TODO: increase ball size or increase score
             return
             
@@ -150,8 +152,13 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         
         let newGoody = Goody()
         newGoody.position = CGPoint(x: self.frame.maxX, y: self.frame.midY)
-        collectables.append(newGoody)
+        collectables.insert(newGoody)
         self.addChild(newGoody)
+        
+        let newGoody1 = Goody()
+        newGoody1.position = CGPoint(x: self.frame.maxX - 50, y: self.frame.midY)
+        collectables.insert(newGoody1)
+        self.addChild(newGoody1)
 //        let newBaddy = Baddy()
 //        newBaddy.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
 //        collectables.append(newBaddy)
