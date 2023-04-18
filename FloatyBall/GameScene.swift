@@ -151,7 +151,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         self.addChild(ball)
         
         let newGoody = Goody()
-        newGoody.position = CGPoint(x: self.frame.maxX, y: self.frame.midY)
+        newGoody.position = CGPoint(x: self.frame.maxX - 20, y: self.frame.midY)
         collectables.insert(newGoody)
         self.addChild(newGoody)
         
@@ -159,10 +159,10 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         newGoody1.position = CGPoint(x: self.frame.maxX - 50, y: self.frame.midY)
         collectables.insert(newGoody1)
         self.addChild(newGoody1)
-//        let newBaddy = Baddy()
-//        newBaddy.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
-//        collectables.append(newBaddy)
-//        self.addChild(newBaddy)
+        let newBaddy = Baddy()
+        newBaddy.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
+        collectables.insert(newBaddy)
+        self.addChild(newBaddy)
     }
     
     func stopGame() {

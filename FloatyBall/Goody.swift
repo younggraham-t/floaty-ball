@@ -9,15 +9,14 @@ import SpriteKit
 
 
 class Goody: CollectableObject {
-    override init() {
+    init(moveDirection: Direction) {
         super.init()
         createPath()
         initPhysicsBody()
         
-        self.fillColor = .green
-        self.strokeColor = .white
-        self.glowWidth = 1.0
-        self.isAntialiased = true
+        self.moveDirection = moveDirection
+        setColorParams(strokeColor: .white, fillColor: .green)
+        
         self.name = NodeNames.goody.rawValue
     }
     
@@ -31,7 +30,7 @@ class Goody: CollectableObject {
     
     override func update(screen: CGRect) {
         
-        self.physicsBody?.velocity = CGVector(dx: -moveSpeed, dy: 0)
+        self.physicsBody?.velocity = self.velocity
     }
     
     
