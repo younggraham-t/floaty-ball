@@ -16,4 +16,5 @@ enum NodeNames: String {
     case ball = "ball"
     case goody = "goody"
     case baddy = "baddy"
+    case button = "button"
 }
