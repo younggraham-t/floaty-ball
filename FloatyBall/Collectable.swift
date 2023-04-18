@@ -7,16 +7,16 @@
 
 import SpriteKit
 
+protocol Collectable {
+    func initPhysicsBody();
+    func update(screen: CGRect);
+}
+
 // super class of goodies and baddies
-class Collectable: SKShapeNode {
-    
-    var moveSpeed = Constants.COLLECTABLE_MOVE_SPEED
-    
-    override init() {
-        super.init()
-        
-        
-    }
+class CollectableObject: SKShapeNode, Collectable {
+
+    var moveSpeed: Int = Constants.COLLECTABLE_MOVE_SPEED
+
     
     func initPhysicsBody() {
         if let path = self.path {
@@ -24,10 +24,6 @@ class Collectable: SKShapeNode {
         }
         self.physicsBody?.collisionBitMask = 0b0000
         self.physicsBody?.contactTestBitMask = 0b0001
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func update(screen: CGRect) {
