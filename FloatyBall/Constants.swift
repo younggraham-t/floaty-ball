@@ -7,7 +7,13 @@
 import SpriteKit
 
 struct Constants {
-    static let BALL_RADIUS = 25
-    static let COLLECTABLE_MOVE_SPEED = 25
+    static let BALL_RADIUS = 15
+    static let COLLECTABLE_MOVE_SPEED = 50
     static let collectableBounds = CGRect(x: 0, y: 0, width: 15, height: 25)
+}
+
+enum NodeNames: String {
+    case ball = "ball"
+    case goody = "goody"
+    case baddy = "baddy"
 }

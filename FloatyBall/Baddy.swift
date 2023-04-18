@@ -17,6 +17,8 @@ class Baddy: CollectableObject {
         self.strokeColor = .black
         self.glowWidth = 1.0
         self.isAntialiased = true
+        
+        self.name = NodeNames.baddy.rawValue
     }
     
     func createPath() {
@@ -28,6 +30,6 @@ class Baddy: CollectableObject {
     }
     
     override func update(screen: CGRect) {
-        self.physicsBody?.velocity = CGVector(dx: -moveSpeed, dy: 0)
+        self.physicsBody?.velocity = CGVector(dx: moveSpeed, dy: 0)
     }
 }

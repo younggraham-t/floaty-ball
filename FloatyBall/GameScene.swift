@@ -8,6 +8,11 @@
 import SpriteKit
 
 class GameScene : SKScene, SKPhysicsContactDelegate {
+    
+    //------------------ Variables -------------------
+    
+    
+    
     var presentingView: GameplayView? = nil
     
     var ball: Ball = Ball()
@@ -15,6 +20,121 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     var collectables = [CollectableObject]()
     
     
+
+    // ------------------- Updates --------------------
+    
+    
+    
+    override func update(_ currentTime: TimeInterval) {
+        
+        
+        for collectable in collectables {
+            collectable.update(screen: self.frame)
+        }
+        
+    }
+    
+    
+    
+    // ------------------- Touches ----------------------
+    
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    
+    
+    
+    
+    // ------------- Collision ------------
+    
+
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+            guard let nodeA = contact.bodyA.node else { return }
+            guard let nodeB = contact.bodyB.node else { return }
+            
+            switch nodeA.name {
+        
+            // run two cases where either nodeA is a ball or nodeB is a ball
+                
+            
+            case NodeNames.ball.rawValue: //nodeA is a ball
+                handleBallCase(ballNode: nodeA, nonBallNode: nodeB)
+                return
+                
+            case NodeNames.goody.rawValue, NodeNames.baddy.rawValue: //nodeA isn't a ball
+                break
+                
+            case _: // should never happen as long as the names are correct
+                //probably should throw an error but it shouldn't be a problem and i dont want to deal with that right now
+                print("invalid name for nodeA")
+                
+            }
+            
+            switch nodeB.name {
+                
+            case NodeNames.ball.rawValue: //nodeB is a ball
+                handleBallCase(ballNode: nodeB, nonBallNode: nodeA)
+                return
+                
+            case NodeNames.goody.rawValue, NodeNames.baddy.rawValue: //nodeB isn't a ball
+                break
+                
+            case _: // should never happen as long as the names are correct
+                //probably should throw an error but it shouldn't be a problem and i dont want to deal with that right now
+                print("invalid name for nodeB")
+            }
+            
+        }
+    
+    func handleBallCase(ballNode: SKNode, nonBallNode: SKNode) {
+        switch nonBallNode.name {
+            
+        case NodeNames.goody.rawValue: // if nonBallNode is a goody remove the goody and increase score/ball size
+            remove(node: nonBallNode) //remove(node:) calls remove(coin:) if it's a goody
+            // increase the ball size until a point should be added
+            
+            return
+            
+        case NodeNames.baddy.rawValue: // if nonBallNode is a ghost remove the ball and lower ball size/ end game
+            remove(node: ballNode)
+//            run(lossSound)
+//            endGame(isWin: false)
+            return
+            
+        case _: // should never happen as long as the names are correct
+            //probably should throw an error but it shouldn't be a problem and i dont want to deal with that right now
+            print("invalid name for nonShipNode")
+            return
+        }
+    }
+        
+    func remove(node: SKNode) {
+//        switch node.name {
+//        case NodeNames.coin.rawValue:
+//            remove(coin: node)
+//            return
+//        case NodeNames.ship.rawValue, NodeNames.ghost.rawValue:
+//            node.removeFromParent()
+//            return
+//        case _:
+//            print("Invalid name")
+//            return
+//        }
+        node.removeFromParent()
+    }
+
+    
+    
+    // ---------------- Game Start/ End -------------
     override func didMove(to view: SKView) {
         print("did move")
         
@@ -28,25 +148,12 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         newGoody.position = CGPoint(x: self.frame.maxX, y: self.frame.midY)
         collectables.append(newGoody)
         self.addChild(newGoody)
+//        let newBaddy = Baddy()
+//        newBaddy.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
+//        collectables.append(newBaddy)
+//        self.addChild(newBaddy)
     }
-
-    override func update(_ currentTime: TimeInterval) {
-        
-        
-        for collectable in collectables {
-            collectable.update(screen: self.frame)
-        }
-        
-    }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
+    
     func stopGame() {
         presentingView?.dismiss()
     }

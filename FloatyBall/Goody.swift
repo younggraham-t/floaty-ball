@@ -18,6 +18,7 @@ class Goody: CollectableObject {
         self.strokeColor = .white
         self.glowWidth = 1.0
         self.isAntialiased = true
+        self.name = NodeNames.goody.rawValue
     }
     
     func createPath() {

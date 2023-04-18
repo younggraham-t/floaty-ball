@@ -33,7 +33,8 @@ class Ball : SKShapeNode {
         self.physicsBody = SKPhysicsBody(polygonFrom: path.cgPath)
         self.physicsBody?.collisionBitMask = 0b0000
         self.physicsBody?.contactTestBitMask = 0b0001
-//        self.name = NodeNames.ship.rawValue 
+        
+        self.name = NodeNames.ball.rawValue
         
         
     }
