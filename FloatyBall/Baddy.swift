@@ -1,5 +1,5 @@
 //
-//  Goody.swift
+//  Baddy.swift
 //  FloatyBall
 //
 //  Created by Graham on 4/18/23.
@@ -7,21 +7,20 @@
 
 import SpriteKit
 
-
-class Goody: CollectableObject {
+class Baddy: CollectableObject {
     override init() {
         super.init()
         createPath()
         initPhysicsBody()
         
-        self.fillColor = .green
-        self.strokeColor = .white
+        self.fillColor = .red
+        self.strokeColor = .black
         self.glowWidth = 1.0
         self.isAntialiased = true
     }
     
     func createPath() {
-        self.path = UIBezierPath(ovalIn: Constants.collectableBounds).cgPath
+        self.path = UIBezierPath(rect: Constants.collectableBounds).cgPath
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,9 +28,6 @@ class Goody: CollectableObject {
     }
     
     override func update(screen: CGRect) {
-        
         self.physicsBody?.velocity = CGVector(dx: -moveSpeed, dy: 0)
     }
-    
-    
 }

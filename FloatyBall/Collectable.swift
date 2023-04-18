@@ -16,6 +16,7 @@ protocol Collectable {
 class CollectableObject: SKShapeNode, Collectable {
 
     var moveSpeed: Int = Constants.COLLECTABLE_MOVE_SPEED
+    
 
     
     func initPhysicsBody() {
