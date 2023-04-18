@@ -58,42 +58,48 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
 
     
     func didBegin(_ contact: SKPhysicsContact) {
-            guard let nodeA = contact.bodyA.node else { return }
-            guard let nodeB = contact.bodyB.node else { return }
-            
-            switch nodeA.name {
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
+    
         
-            // run two cases where either nodeA is a ball or nodeB is a ball
-                
+        // run two cases where either nodeA is a ball or nodeB is a ball but if either is a button just return and do nothing
+        
+        switch nodeA.name {
+    
+        case NodeNames.button.rawValue:
+            return
             
-            case NodeNames.ball.rawValue: //nodeA is a ball
-                handleBallCase(ballNode: nodeA, nonBallNode: nodeB)
-                return
-                
-            case NodeNames.goody.rawValue, NodeNames.baddy.rawValue: //nodeA isn't a ball
-                break
-                
-            case _: // should never happen as long as the names are correct
-                //probably should throw an error but it shouldn't be a problem and i dont want to deal with that right now
-                print("invalid name for nodeA")
-                
-            }
+        case NodeNames.ball.rawValue: //nodeA is a ball
+            handleBallCase(ballNode: nodeA, nonBallNode: nodeB)
+            return
             
-            switch nodeB.name {
-                
-            case NodeNames.ball.rawValue: //nodeB is a ball
-                handleBallCase(ballNode: nodeB, nonBallNode: nodeA)
-                return
-                
-            case NodeNames.goody.rawValue, NodeNames.baddy.rawValue: //nodeB isn't a ball
-                break
-                
-            case _: // should never happen as long as the names are correct
-                //probably should throw an error but it shouldn't be a problem and i dont want to deal with that right now
-                print("invalid name for nodeB")
-            }
+        case NodeNames.goody.rawValue, NodeNames.baddy.rawValue: //nodeA isn't a ball
+            break
+            
+        case _: // should never happen as long as the names are correct
+            //probably should throw an error but it shouldn't be a problem and i dont want to deal with that right now
+            print("invalid name for nodeA")
             
         }
+        
+        switch nodeB.name {
+            
+        case NodeNames.button.rawValue:
+            return
+            
+        case NodeNames.ball.rawValue: //nodeB is a ball
+            handleBallCase(ballNode: nodeB, nonBallNode: nodeA)
+            return
+            
+        case NodeNames.goody.rawValue, NodeNames.baddy.rawValue: //nodeB isn't a ball
+            break
+            
+        case _: // should never happen as long as the names are correct
+            //probably should throw an error but it shouldn't be a problem and i dont want to deal with that right now
+            print("invalid name for nodeB")
+        }
+        
+    }
     
     func handleBallCase(ballNode: SKNode, nonBallNode: SKNode) {
         switch nonBallNode.name {
