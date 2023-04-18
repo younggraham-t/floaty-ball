@@ -8,15 +8,14 @@
 import SpriteKit
 
 class Baddy: CollectableObject {
-    override init() {
+    init(moveDirection: Direction) {
         super.init()
         createPath()
         initPhysicsBody()
         
-        self.fillColor = .red
-        self.strokeColor = .black
-        self.glowWidth = 1.0
-        self.isAntialiased = true
+        self.moveDirection = moveDirection
+        
+        setColorParams(strokeColor: .black, fillColor: .red)
         
         self.name = NodeNames.baddy.rawValue
     }
