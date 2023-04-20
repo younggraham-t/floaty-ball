@@ -19,6 +19,9 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     var collectables = Set<CollectableObject>() //uses set to make removal easier (for memory management)
     
+    var currentTouches: Set<UITouch> = Set()
+    
+    var directionals = [Directional]()
     
 
     // ------------------- Updates --------------------
@@ -27,14 +30,25 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         
+        ball.update()
         
         for collectable in collectables {
 //            print(collectable)
             collectable.update(screen: self.frame)
         }
         
+        for touch in currentTouches {
+            for directional in directionals {
+                if closeEnough(directional, touch) {
+//                    print("touched the directional")
+                    let direction = directional.direction
+                    ball.moveIn(direction: direction)
+                }
+            }
+        }
+        
+        
     }
-    
     
     
     // ------------------- Touches ----------------------
@@ -42,13 +56,34 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        for touch in touches {
+            print("touch - began")
+            currentTouches.insert(touch)
+            
+        }
     }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    func closeEnough(_ target: SKSpriteNode, _ touch: UITouch) -> Bool {
+        let tolerance = 100.0
+        let targetPosition = target.position
+        let touchPosition = touch.location(in: self)
+
+        let closeInX = abs(targetPosition.x - touchPosition.x) <= tolerance
+        let closeInY = abs(targetPosition.y - touchPosition.y) <= tolerance
         
+        return closeInX && closeInY
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("touch - moved")
+
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        print("touch - ended")
+        for touch in touches {
+            currentTouches.remove(touch)
+        }
+        self.ball.stopMovement()
     }
     
     
@@ -143,26 +178,47 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     // ---------------- Game Start/ End -------------
     override func didMove(to view: SKView) {
         print("did move")
-        
+        view.isMultipleTouchEnabled = true
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         self.addChild(ball)
         
-        let newGoody = Goody(moveDirection: .west)
-        newGoody.position = CGPoint(x: self.frame.maxX - 20, y: self.frame.midY)
-        collectables.insert(newGoody)
-        self.addChild(newGoody)
-        
-        let newGoody1 = Goody(moveDirection: .south)
-        newGoody1.position = CGPoint(x: self.frame.midX, y: self.frame.maxY)
-        collectables.insert(newGoody1)
-        self.addChild(newGoody1)
-        let newBaddy = Baddy(moveDirection: .east)
-        newBaddy.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
-        collectables.insert(newBaddy)
-        self.addChild(newBaddy)
+        createDirectionals()
+        //        let newGoody = Goody(moveDirection: .west)
+//        newGoody.position = CGPoint(x: self.frame.maxX - 20, y: self.frame.midY)
+//        collectables.insert(newGoody)
+//        self.addChild(newGoody)
+//
+//        let newGoody1 = Goody(moveDirection: .south)
+//        newGoody1.position = CGPoint(x: self.frame.midX, y: self.frame.maxY)
+//        collectables.insert(newGoody1)
+//        self.addChild(newGoody1)
+//        let newBaddy = Baddy(moveDirection: .east)
+//        newBaddy.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
+//        collectables.insert(newBaddy)
+//        self.addChild(newBaddy)
+    }
+    
+    func createDirectionals() {
+        for direction in Direction.allCases {
+            let newDirectional = Directional(direction: direction)
+            switch direction {
+            case .east:
+                newDirectional.position = CGPoint(x: self.frame.minX + 150, y: self.frame.minY + 50)
+            case .west:
+                newDirectional.position = CGPoint(x: self.frame.minX + 50, y: self.frame.minY + 50)
+            case .north:
+                newDirectional.position = CGPoint(x: self.frame.maxX - 50, y: self.frame.minY + 150)
+            case .south:
+                newDirectional.position = CGPoint(x: self.frame.maxX - 50, y: self.frame.minY + 50)
+            }
+            directionals.append(newDirectional)
+            addChild(newDirectional)
+
+        }
+    
     }
     
     func stopGame() {

@@ -15,7 +15,7 @@ protocol Collectable {
 // super class of goodies and baddies
 class CollectableObject: SKShapeNode, Collectable {
 
-    var moveSpeed: Double = Constants.COLLECTABLE_MOVE_SPEED
+    var moveSpeed: Double = Constants.OBJECT_MOVE_SPEED
     var moveDirection: Direction = .west //default direction
     
     var velocity: CGVector {
