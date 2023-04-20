@@ -11,7 +11,7 @@ import SpriteKit
 class Goody: CollectableObject {
     init(moveDirection: Direction) {
         super.init()
-        createPath()
+        createPath(moveDirection: moveDirection)
         initPhysicsBody()
         
         self.moveDirection = moveDirection
@@ -20,8 +20,14 @@ class Goody: CollectableObject {
         self.name = NodeNames.goody.rawValue
     }
     
-    func createPath() {
-        self.path = UIBezierPath(ovalIn: Constants.collectableBounds).cgPath
+    func createPath(moveDirection: Direction) {
+        switch moveDirection {
+        case .north, .south:
+            self.path = UIBezierPath(ovalIn: Constants.VERTICAL_COLLECTABLE_BOUNDS).cgPath
+        case .east, .west:
+            self.path = UIBezierPath(ovalIn: Constants.HORIZONTAL_COLLECTABLE_BOUNDS).cgPath
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

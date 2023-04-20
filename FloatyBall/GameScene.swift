@@ -23,6 +23,9 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     var directionals = [Directional]()
     
+    var score = 0
+    var scoreLabel: SKLabelNode = SKLabelNode(text: "Score: 0")
+    
 
     // ------------------- Updates --------------------
     
@@ -30,13 +33,16 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         
+        //update the ball
         ball.update()
         
+        // update all the collectables
         for collectable in collectables {
 //            print(collectable)
             collectable.update(screen: self.frame)
         }
         
+        //check all the touches for if a direction is being pressed
         for touch in currentTouches {
             for directional in directionals {
                 if closeEnough(directional, touch) {
@@ -47,7 +53,61 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        //spawn new collectables
+        let doesSpawn = Double.random(in: 0...1) < Constants.COLLECTABLE_SPAWN_CHANCE
+        if doesSpawn {
+            let isGoody = Double.random(in: 0...1) < Constants.PERCENT_BADDIES
+            let newCollectable: CollectableObject
+            let moveDirection = randomizeMoveDirection()
+            
+            if isGoody {
+                newCollectable = Goody(moveDirection: moveDirection)
+            }
+            else {
+                newCollectable = Baddy(moveDirection: moveDirection)
+            }
+            
+            switch moveDirection {
+            case .north:
+                let randomInSide = Double.random(in: frame.minX...frame.maxX)
+                newCollectable.position = CGPoint(x: randomInSide, y: frame.minY)
+            case .south:
+                let randomInSide = Double.random(in: frame.minX...frame.maxX)
+                newCollectable.position = CGPoint(x: randomInSide, y: frame.maxY)
+            case .east:
+                let randomInSide = Double.random(in: frame.minY...frame.maxY)
+                newCollectable.position = CGPoint(x: frame.minX, y: randomInSide)
+            case .west:
+                let randomInSide = Double.random(in: frame.minY...frame.maxY)
+                newCollectable.position = CGPoint(x: frame.maxX, y: randomInSide)
+            }
+            collectables.insert(newCollectable)
+            self.addChild(newCollectable)
+        }
         
+    }
+    
+    func randomizeMoveDirection() -> Direction {
+        let isHorizontal = Double.random(in: 0...1) < 0.5
+        let isMin = Double.random(in: 0...1) < 0.5
+        let moveDirection: Direction
+        if isHorizontal {
+            if isMin { // if it starts at the min and moves to the max
+                moveDirection = .east
+            }
+            else {
+                moveDirection = .west
+            }
+        }
+        else {
+            if isMin { // if it starts at the min and moves to the max
+                moveDirection = .north
+            }
+            else {
+                moveDirection = .south
+            }
+        }
+        return moveDirection
     }
     
     
@@ -143,12 +203,23 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         case NodeNames.goody.rawValue: // if nonBallNode is a goody remove the goody and increase score/ball size
             remove(node: nonBallNode) //remove(node:) calls remove(coin:) if it's a goody
             collectables.remove(nonBallNode as! CollectableObject)
-            // TODO: increase ball size or increase score
+            let didOverflow = ball.increaseBallSize()
+            if didOverflow {
+                // TODO: increase speed of collectables
+                score += 1
+                scoreLabel.text = "Score: \(score)"
+            }
             return
             
-        case NodeNames.baddy.rawValue: // if nonBallNode is a ghost remove the ball and lower ball size/ end game
-            remove(node: ballNode)
-            // TODO: lower ball size and or end game
+        case NodeNames.baddy.rawValue: // if nonBallNode is a baddy and lower ball size/ end game
+            remove(node: nonBallNode)
+            collectables.remove(nonBallNode as! CollectableObject)
+            let didOverflow = ball.decreaseBallSize()
+            if didOverflow {
+                remove(node: ballNode)
+                stopGame()
+                
+            }
             return
             
         case _: // should never happen as long as the names are correct
@@ -185,20 +256,12 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         self.addChild(ball)
         
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY + 50)
+        scoreLabel.zPosition = 1
+        addChild(scoreLabel)
+        
         createDirectionals()
-        //        let newGoody = Goody(moveDirection: .west)
-//        newGoody.position = CGPoint(x: self.frame.maxX - 20, y: self.frame.midY)
-//        collectables.insert(newGoody)
-//        self.addChild(newGoody)
-//
-//        let newGoody1 = Goody(moveDirection: .south)
-//        newGoody1.position = CGPoint(x: self.frame.midX, y: self.frame.maxY)
-//        collectables.insert(newGoody1)
-//        self.addChild(newGoody1)
-//        let newBaddy = Baddy(moveDirection: .east)
-//        newBaddy.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
-//        collectables.insert(newBaddy)
-//        self.addChild(newBaddy)
+
     }
     
     func createDirectionals() {
@@ -214,6 +277,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             case .south:
                 newDirectional.position = CGPoint(x: self.frame.maxX - 50, y: self.frame.minY + 50)
             }
+            newDirectional.zPosition = 1
             directionals.append(newDirectional)
             addChild(newDirectional)
 

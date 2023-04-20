@@ -44,6 +44,8 @@ class CollectableObject: SKShapeNode, Collectable {
         self.isAntialiased = true
     }
     
+    
+    
     func initPhysicsBody() {
         if let path = self.path {
             self.physicsBody = SKPhysicsBody(polygonFrom: path)

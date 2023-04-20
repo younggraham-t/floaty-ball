@@ -10,7 +10,7 @@ import SpriteKit
 class Baddy: CollectableObject {
     init(moveDirection: Direction) {
         super.init()
-        createPath()
+        createPath(moveDirection: moveDirection)
         initPhysicsBody()
         
         self.moveDirection = moveDirection
@@ -20,8 +20,14 @@ class Baddy: CollectableObject {
         self.name = NodeNames.baddy.rawValue
     }
     
-    func createPath() {
-        self.path = UIBezierPath(rect: Constants.collectableBounds).cgPath
+    func createPath(moveDirection: Direction) {
+        switch moveDirection {
+        case .north, .south:
+            self.path = UIBezierPath(rect: Constants.VERTICAL_COLLECTABLE_BOUNDS).cgPath
+        case .east, .west:
+            self.path = UIBezierPath(rect: Constants.HORIZONTAL_COLLECTABLE_BOUNDS).cgPath
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -29,6 +35,6 @@ class Baddy: CollectableObject {
     }
     
     override func update(screen: CGRect) {
-        self.physicsBody?.velocity = CGVector(dx: moveSpeed, dy: 0)
+        self.physicsBody?.velocity = self.velocity
     }
 }

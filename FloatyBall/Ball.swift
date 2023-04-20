@@ -13,17 +13,14 @@ class Ball : SKShapeNode {
     
     var velocity: CGVector = .zero
     
+    var ballRadius = Constants.DEFAULT_BALL_RADIUS
+    
     let ballSpeed = 125.0
     override init() {
         super.init()
         
         
-        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: Constants.BALL_RADIUS, height: Constants.BALL_RADIUS))
-//        let path = UIBezierPath()
-//        path.move(to: CGPoint(x: 0.0, y: r * 2.0))
-//        path.addLine(to: CGPoint(x: -r, y: -r * 2.0))
-//        path.addLine(to: CGPoint(x: r, y: -r * 2.0))
-//        path.addLine(to: CGPoint(x: 0.0, y: r * 2.0))
+        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: Constants.DEFAULT_BALL_RADIUS, height: Constants.DEFAULT_BALL_RADIUS))
         self.path = path.cgPath
         
         self.fillColor = .blue
@@ -59,6 +56,44 @@ class Ball : SKShapeNode {
         case .west:
             self.velocity = CGVector(dx: -Constants.OBJECT_MOVE_SPEED, dy: self.velocity.dy)
         }
+    }
+    
+    //returns whether the ball size overflowed
+    func increaseBallSize() -> Bool {
+        print("increase")
+        if ballRadius < Constants.BALL_SIZE_MAX {
+            ballRadius += Constants.BALL_SIZE_DELTA
+            updatePath()
+            return false
+        }
+        else {
+            ballRadius = Constants.DEFAULT_BALL_RADIUS
+            updatePath()
+            return true
+        }
+        
+    }
+    
+    //returns whether the ball size overflowed
+    func decreaseBallSize() -> Bool {
+        if ballRadius > Constants.DEFAULT_BALL_RADIUS {
+            ballRadius -= Constants.BALL_SIZE_DELTA
+            updatePath()
+            return false
+        }
+        else {
+            ballRadius = Constants.BALL_SIZE_MAX
+            updatePath()
+            return true
+        }
+        
+    }
+    
+    func updatePath() {
+        print(ballRadius)
+        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: ballRadius, height: ballRadius))
+        self.path = path.cgPath
+        self.physicsBody = SKPhysicsBody(polygonFrom: path.cgPath)
     }
     
     func stopMovement() {
