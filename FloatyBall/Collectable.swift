@@ -18,6 +18,19 @@ class CollectableObject: SKShapeNode, Collectable {
     var moveSpeed: Double = Constants.OBJECT_MOVE_SPEED
     var moveDirection: Direction = .west //default direction
     
+    init(moveDirection: Direction, speed: Double) {
+        super.init()
+        createPath(moveDirection: moveDirection)
+        initPhysicsBody()
+        
+        self.moveDirection = moveDirection
+        self.moveSpeed = speed
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var velocity: CGVector {
         
         var dx: Double = 0
@@ -42,6 +55,16 @@ class CollectableObject: SKShapeNode, Collectable {
         self.strokeColor = strokeColor
         self.glowWidth = 1.0
         self.isAntialiased = true
+    }
+    
+    func createPath(moveDirection: Direction) {
+        switch moveDirection {
+        case .north, .south:
+            self.path = UIBezierPath(ovalIn: Constants.VERTICAL_COLLECTABLE_BOUNDING_BOX).cgPath
+        case .east, .west:
+            self.path = UIBezierPath(ovalIn: Constants.HORIZONTAL_COLLECTABLE_BOUNDING_BOX).cgPath
+        }
+        
     }
     
     
@@ -80,8 +103,8 @@ class CollectableObject: SKShapeNode, Collectable {
         return false
     }
     
-    func increaseSpeed(by amount: Double) {
-        self.moveSpeed += amount
+    func updateSpeed(to newSpeed: Double) {
+        self.moveSpeed = newSpeed
     }
     
 }

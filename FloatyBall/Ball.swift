@@ -49,7 +49,7 @@ class Ball : SKShapeNode {
         switch direction {
         case .north:
             if self.position.y > screen.maxY - Double(ballRadius){
-                print("off top")
+//                print("off top")
                 self.velocity.dy = .zero
             }
             else {
@@ -57,7 +57,7 @@ class Ball : SKShapeNode {
             }
         case .south:
             if self.position.y < Double(ballRadius) + screen.minY{
-                print("off bottom")
+//                print("off bottom")
                 self.velocity.dy = .zero
             }
             else {
@@ -65,7 +65,7 @@ class Ball : SKShapeNode {
             }
         case .east:
             if self.position.x > screen.maxX - Double(ballRadius){
-                print("off right")
+//                print("off right")
                 self.velocity.dx = .zero
             }
             else {
@@ -73,7 +73,7 @@ class Ball : SKShapeNode {
             }
         case .west:
             if self.position.x < Double(ballRadius) + screen.minX{
-                print("off left")
+//                print("off left")
                 self.velocity.dx = .zero
             }
             else {

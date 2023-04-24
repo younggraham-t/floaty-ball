@@ -26,6 +26,8 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     var score = 0
     var scoreLabel: SKLabelNode = SKLabelNode(text: "Score: 0")
     
+    var collectablesCurrentSpeed = Constants.OBJECT_MOVE_SPEED
+    
 
     // ------------------- Updates --------------------
     
@@ -73,10 +75,10 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         let moveDirection = randomizeMoveDirection()
         
         if isGoody {
-            newCollectable = Goody(moveDirection: moveDirection)
+            newCollectable = Goody(moveDirection: moveDirection, speed: collectablesCurrentSpeed)
         }
         else {
-            newCollectable = Baddy(moveDirection: moveDirection)
+            newCollectable = Baddy(moveDirection: moveDirection, speed: collectablesCurrentSpeed)
         }
         
         switch moveDirection {
@@ -215,8 +217,9 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             collectables.remove(nonBallNode as! CollectableObject)
             let didOverflow = ball.increaseBallSize()
             if didOverflow {
+                collectablesCurrentSpeed += Constants.DELTA_OBJECT_SPEED
                 for collectable in collectables {
-                    collectable.increaseSpeed(by: Constants.DELTA_OBJECT_SPEED)
+                    collectable.updateSpeed(to: collectablesCurrentSpeed)
                 }
                 score += 1
                 scoreLabel.text = "Score: \(score)"
