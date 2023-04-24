@@ -7,12 +7,19 @@
 import SpriteKit
 
 struct Constants {
+    
+    static let SPAWN_COLLECTABLE_TIME = 3.5
+    
+    static let OBJECT_MOVE_SPEED = 150.0
+    static let DELTA_OBJECT_SPEED = 25.0
+    
+    static let VERTICAL_COLLECTABLE_BOUNDING_BOX = CGRect(x: 0, y: 0, width: 15, height: 20)
+    static let HORIZONTAL_COLLECTABLE_BOUNDING_BOX = CGRect(x: 0, y: 0, width: 20, height: 15)
+    
+    static let PERCENT_BADDIES = 0.0
+    static let COLLECTABLE_SPAWN_CHANCE = 0.0
+    
     static let DEFAULT_BALL_RADIUS = 15
-    static let OBJECT_MOVE_SPEED = 50.0
-    static let VERTICAL_COLLECTABLE_BOUNDS = CGRect(x: 0, y: 0, width: 15, height: 20)
-    static let HORIZONTAL_COLLECTABLE_BOUNDS = CGRect(x: 0, y: 0, width: 20, height: 15)
-    static let PERCENT_BADDIES = 0.5
-    static let COLLECTABLE_SPAWN_CHANCE = 0.25
     static let BALL_SIZE_DELTA = 5
     static let BALL_SIZE_MAX = DEFAULT_BALL_RADIUS + (BALL_SIZE_DELTA * 2)
     

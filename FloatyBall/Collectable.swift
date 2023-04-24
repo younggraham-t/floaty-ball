@@ -9,7 +9,7 @@ import SpriteKit
 
 protocol Collectable {
     func initPhysicsBody();
-    func update(screen: CGRect);
+    func update(screen: CGRect) -> Bool;
 }
 
 // super class of goodies and baddies
@@ -54,8 +54,34 @@ class CollectableObject: SKShapeNode, Collectable {
         self.physicsBody?.contactTestBitMask = 0b0001
     }
     
-    func update(screen: CGRect) {
+    
+    // returns true if self is off the screen in the move direction
+    func update(screen: CGRect) -> Bool {
+        self.physicsBody?.velocity = self.velocity
         
+        switch moveDirection {
+        case .north:
+            if self.position.y > screen.maxY {
+                return true
+            }
+        case .south:
+            if self.position.y < screen.minY {
+                return true
+            }
+        case .east:
+            if self.position.x > screen.maxX {
+                return true
+            }
+        case .west:
+            if self.position.x < screen.minX {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func increaseSpeed(by amount: Double) {
+        self.moveSpeed += amount
     }
     
 }

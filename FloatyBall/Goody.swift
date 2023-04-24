@@ -23,9 +23,9 @@ class Goody: CollectableObject {
     func createPath(moveDirection: Direction) {
         switch moveDirection {
         case .north, .south:
-            self.path = UIBezierPath(ovalIn: Constants.VERTICAL_COLLECTABLE_BOUNDS).cgPath
+            self.path = UIBezierPath(ovalIn: Constants.VERTICAL_COLLECTABLE_BOUNDING_BOX).cgPath
         case .east, .west:
-            self.path = UIBezierPath(ovalIn: Constants.HORIZONTAL_COLLECTABLE_BOUNDS).cgPath
+            self.path = UIBezierPath(ovalIn: Constants.HORIZONTAL_COLLECTABLE_BOUNDING_BOX).cgPath
         }
         
     }
@@ -34,10 +34,10 @@ class Goody: CollectableObject {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func update(screen: CGRect) {
-        
-        self.physicsBody?.velocity = self.velocity
-    }
+//    override func update(screen: CGRect) {
+//        
+//        self.physicsBody?.velocity = self.velocity
+//    }
     
     
 }

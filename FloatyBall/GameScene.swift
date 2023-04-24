@@ -38,8 +38,12 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         
         // update all the collectables
         for collectable in collectables {
-//            print(collectable)
-            collectable.update(screen: self.frame)
+
+            if collectable.update(screen: self.frame) {
+                collectable.removeFromParent()
+                collectables.remove(collectable)
+            }
+            
         }
         
         //check all the touches for if a direction is being pressed
@@ -48,43 +52,49 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
                 if closeEnough(directional, touch) {
 //                    print("touched the directional")
                     let direction = directional.direction
-                    ball.moveIn(direction: direction)
+                    ball.moveIn(direction: direction, screen: self.frame)
                 }
             }
         }
         
-        //spawn new collectables
-        let doesSpawn = Double.random(in: 0...1) < Constants.COLLECTABLE_SPAWN_CHANCE
-        if doesSpawn {
-            let isGoody = Double.random(in: 0...1) < Constants.PERCENT_BADDIES
-            let newCollectable: CollectableObject
-            let moveDirection = randomizeMoveDirection()
-            
-            if isGoody {
-                newCollectable = Goody(moveDirection: moveDirection)
+        if currentTime > Constants.SPAWN_COLLECTABLE_TIME {
+            //spawn new collectables
+            let doesSpawn = Double.random(in: 0...1) < Constants.COLLECTABLE_SPAWN_CHANCE
+            if doesSpawn {
+                spawnCollectable()
             }
-            else {
-                newCollectable = Baddy(moveDirection: moveDirection)
-            }
-            
-            switch moveDirection {
-            case .north:
-                let randomInSide = Double.random(in: frame.minX...frame.maxX)
-                newCollectable.position = CGPoint(x: randomInSide, y: frame.minY)
-            case .south:
-                let randomInSide = Double.random(in: frame.minX...frame.maxX)
-                newCollectable.position = CGPoint(x: randomInSide, y: frame.maxY)
-            case .east:
-                let randomInSide = Double.random(in: frame.minY...frame.maxY)
-                newCollectable.position = CGPoint(x: frame.minX, y: randomInSide)
-            case .west:
-                let randomInSide = Double.random(in: frame.minY...frame.maxY)
-                newCollectable.position = CGPoint(x: frame.maxX, y: randomInSide)
-            }
-            collectables.insert(newCollectable)
-            self.addChild(newCollectable)
         }
         
+    }
+    
+    func spawnCollectable() {
+        let isGoody = Double.random(in: 0...1) < Constants.PERCENT_BADDIES
+        let newCollectable: CollectableObject
+        let moveDirection = randomizeMoveDirection()
+        
+        if isGoody {
+            newCollectable = Goody(moveDirection: moveDirection)
+        }
+        else {
+            newCollectable = Baddy(moveDirection: moveDirection)
+        }
+        
+        switch moveDirection {
+        case .north:
+            let randomInSide = Double.random(in: frame.minX...frame.maxX)
+            newCollectable.position = CGPoint(x: randomInSide, y: frame.minY)
+        case .south:
+            let randomInSide = Double.random(in: frame.minX...frame.maxX)
+            newCollectable.position = CGPoint(x: randomInSide, y: frame.maxY)
+        case .east:
+            let randomInSide = Double.random(in: frame.minY...frame.maxY)
+            newCollectable.position = CGPoint(x: frame.minX, y: randomInSide)
+        case .west:
+            let randomInSide = Double.random(in: frame.minY...frame.maxY)
+            newCollectable.position = CGPoint(x: frame.maxX, y: randomInSide)
+        }
+        collectables.insert(newCollectable)
+        self.addChild(newCollectable)
     }
     
     func randomizeMoveDirection() -> Direction {
@@ -205,7 +215,9 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             collectables.remove(nonBallNode as! CollectableObject)
             let didOverflow = ball.increaseBallSize()
             if didOverflow {
-                // TODO: increase speed of collectables
+                for collectable in collectables {
+                    collectable.increaseSpeed(by: Constants.DELTA_OBJECT_SPEED)
+                }
                 score += 1
                 scoreLabel.text = "Score: \(score)"
             }

@@ -45,16 +45,40 @@ class Ball : SKShapeNode {
         self.physicsBody?.velocity = self.velocity
     }
     
-    func moveIn(direction: Direction) {
+    func moveIn(direction: Direction, screen: CGRect) {
         switch direction {
         case .north:
-            self.velocity = CGVector(dx: self.velocity.dx, dy: Constants.OBJECT_MOVE_SPEED)
+            if self.position.y > screen.maxY - Double(ballRadius){
+                print("off top")
+                self.velocity.dy = .zero
+            }
+            else {
+                self.velocity.dy = Constants.OBJECT_MOVE_SPEED
+            }
         case .south:
-            self.velocity = CGVector(dx: self.velocity.dx, dy: -Constants.OBJECT_MOVE_SPEED)
+            if self.position.y < Double(ballRadius) + screen.minY{
+                print("off bottom")
+                self.velocity.dy = .zero
+            }
+            else {
+                self.velocity.dy = -Constants.OBJECT_MOVE_SPEED
+            }
         case .east:
-            self.velocity = CGVector(dx: Constants.OBJECT_MOVE_SPEED, dy: self.velocity.dy)
+            if self.position.x > screen.maxX - Double(ballRadius){
+                print("off right")
+                self.velocity.dx = .zero
+            }
+            else {
+                self.velocity.dx = Constants.OBJECT_MOVE_SPEED
+            }
         case .west:
-            self.velocity = CGVector(dx: -Constants.OBJECT_MOVE_SPEED, dy: self.velocity.dy)
+            if self.position.x < Double(ballRadius) + screen.minX{
+                print("off left")
+                self.velocity.dx = .zero
+            }
+            else {
+                self.velocity.dx = -Constants.OBJECT_MOVE_SPEED
+            }
         }
     }
     
