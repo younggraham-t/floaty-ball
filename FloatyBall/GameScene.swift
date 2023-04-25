@@ -84,13 +84,13 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         switch moveDirection {
         case .north:
             let randomInSide = Double.random(in: frame.minX...frame.maxX)
-            newCollectable.position = CGPoint(x: randomInSide, y: frame.minY)
+            newCollectable.position = CGPoint(x: randomInSide, y: frame.minY - Constants.VERTICAL_COLLECTABLE_BOUNDING_BOX.height)
         case .south:
             let randomInSide = Double.random(in: frame.minX...frame.maxX)
             newCollectable.position = CGPoint(x: randomInSide, y: frame.maxY)
         case .east:
             let randomInSide = Double.random(in: frame.minY...frame.maxY)
-            newCollectable.position = CGPoint(x: frame.minX, y: randomInSide)
+            newCollectable.position = CGPoint(x: frame.minX - Constants.HORIZONTAL_COLLECTABLE_BOUNDING_BOX.width, y: randomInSide)
         case .west:
             let randomInSide = Double.random(in: frame.minY...frame.maxY)
             newCollectable.position = CGPoint(x: frame.maxX, y: randomInSide)

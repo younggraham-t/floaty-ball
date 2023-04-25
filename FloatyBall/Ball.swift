@@ -13,14 +13,13 @@ class Ball : SKShapeNode {
     
     var velocity: CGVector = .zero
     
-    var ballRadius = Constants.DEFAULT_BALL_RADIUS
-    
-    let ballSpeed = 125.0
+    var ballDiameter = Constants.DEFAULT_BALL_RADIUS * 2
+
     override init() {
         super.init()
         
         
-        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: Constants.DEFAULT_BALL_RADIUS, height: Constants.DEFAULT_BALL_RADIUS))
+        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: ballDiameter, height: ballDiameter))
         self.path = path.cgPath
         
         self.fillColor = .blue
@@ -48,7 +47,7 @@ class Ball : SKShapeNode {
     func moveIn(direction: Direction, screen: CGRect) {
         switch direction {
         case .north:
-            if self.position.y > screen.maxY - Double(ballRadius){
+            if self.position.y > screen.maxY - self.frame.height {
 //                print("off top")
                 self.velocity.dy = .zero
             }
@@ -56,7 +55,7 @@ class Ball : SKShapeNode {
                 self.velocity.dy = Constants.OBJECT_MOVE_SPEED
             }
         case .south:
-            if self.position.y < Double(ballRadius) + screen.minY{
+            if self.position.y < screen.minY + Double(Constants.DEFAULT_BALL_RADIUS) {
 //                print("off bottom")
                 self.velocity.dy = .zero
             }
@@ -64,7 +63,7 @@ class Ball : SKShapeNode {
                 self.velocity.dy = -Constants.OBJECT_MOVE_SPEED
             }
         case .east:
-            if self.position.x > screen.maxX - Double(ballRadius){
+            if self.position.x > screen.maxX - self.frame.width {
 //                print("off right")
                 self.velocity.dx = .zero
             }
@@ -72,7 +71,7 @@ class Ball : SKShapeNode {
                 self.velocity.dx = Constants.OBJECT_MOVE_SPEED
             }
         case .west:
-            if self.position.x < Double(ballRadius) + screen.minX{
+            if self.position.x < screen.minX + Double(Constants.DEFAULT_BALL_RADIUS) {
 //                print("off left")
                 self.velocity.dx = .zero
             }
@@ -85,13 +84,13 @@ class Ball : SKShapeNode {
     //returns whether the ball size overflowed
     func increaseBallSize() -> Bool {
         print("increase")
-        if ballRadius < Constants.BALL_SIZE_MAX {
-            ballRadius += Constants.BALL_SIZE_DELTA
+        if ballDiameter < Constants.BALL_SIZE_MAX_DIAMETER {
+            ballDiameter += Constants.BALL_SIZE_DELTA
             updatePath()
             return false
         }
         else {
-            ballRadius = Constants.DEFAULT_BALL_RADIUS
+            ballDiameter = Constants.DEFAULT_BALL_RADIUS * 2
             updatePath()
             return true
         }
@@ -100,22 +99,20 @@ class Ball : SKShapeNode {
     
     //returns whether the ball size overflowed
     func decreaseBallSize() -> Bool {
-        if ballRadius > Constants.DEFAULT_BALL_RADIUS {
-            ballRadius -= Constants.BALL_SIZE_DELTA
+        if ballDiameter > Constants.DEFAULT_BALL_RADIUS {
+            ballDiameter -= Constants.BALL_SIZE_DELTA
             updatePath()
             return false
         }
         else {
-            ballRadius = Constants.BALL_SIZE_MAX
-            updatePath()
             return true
         }
         
     }
     
     func updatePath() {
-        print(ballRadius)
-        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: ballRadius, height: ballRadius))
+        print(ballDiameter)
+        let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: ballDiameter, height: ballDiameter))
         self.path = path.cgPath
         self.physicsBody = SKPhysicsBody(polygonFrom: path.cgPath)
     }

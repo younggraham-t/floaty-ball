@@ -19,9 +19,9 @@ struct Constants {
     static let PERCENT_BADDIES = 0.5
     static let COLLECTABLE_SPAWN_CHANCE = 0.05
     
-    static let DEFAULT_BALL_RADIUS = 15
+    static let DEFAULT_BALL_RADIUS = 10
     static let BALL_SIZE_DELTA = 5
-    static let BALL_SIZE_MAX = DEFAULT_BALL_RADIUS + (BALL_SIZE_DELTA * 2)
+    static let BALL_SIZE_MAX_DIAMETER = (DEFAULT_BALL_RADIUS + (BALL_SIZE_DELTA * 2)) * 2
     
 }
 

@@ -88,7 +88,7 @@ class CollectableObject: SKShapeNode, Collectable {
                 return true
             }
         case .south:
-            if self.position.y < screen.minY {
+            if self.position.y < screen.minY - Constants.VERTICAL_COLLECTABLE_BOUNDING_BOX.height {
                 return true
             }
         case .east:
@@ -96,7 +96,7 @@ class CollectableObject: SKShapeNode, Collectable {
                 return true
             }
         case .west:
-            if self.position.x < screen.minX {
+            if self.position.x < screen.minX - Constants.HORIZONTAL_COLLECTABLE_BOUNDING_BOX.width {
                 return true
             }
         }
