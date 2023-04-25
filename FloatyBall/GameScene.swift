@@ -31,9 +31,12 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
 
     // ------------------- Updates --------------------
     
-    
+    var collectableTime = 0.0
     
     override func update(_ currentTime: TimeInterval) {
+        if collectableTime == 0.0 {
+            collectableTime = currentTime
+        }
         
         //update the ball
         ball.update()
@@ -59,7 +62,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if currentTime > Constants.SPAWN_COLLECTABLE_TIME {
+        if collectableTime != 0.0 && collectableTime + Constants.SPAWN_COLLECTABLE_TIME < currentTime {
             //spawn new collectables
             let doesSpawn = Double.random(in: 0...1) < Constants.COLLECTABLE_SPAWN_CHANCE
             if doesSpawn {

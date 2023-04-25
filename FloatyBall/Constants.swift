@@ -8,7 +8,7 @@ import SpriteKit
 
 struct Constants {
     
-    static let SPAWN_COLLECTABLE_TIME = 3.5
+    static let SPAWN_COLLECTABLE_TIME = 3.0
     
     static let OBJECT_MOVE_SPEED = 150.0
     static let DELTA_OBJECT_SPEED = 50.0
