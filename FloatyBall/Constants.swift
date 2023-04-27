@@ -12,9 +12,11 @@ struct Constants {
     
     static let OBJECT_MOVE_SPEED = 150.0
     static let DELTA_OBJECT_SPEED = 50.0
-    
-    static let VERTICAL_COLLECTABLE_BOUNDING_BOX = CGRect(x: 0, y: 0, width: 15, height: 20)
-    static let HORIZONTAL_COLLECTABLE_BOUNDING_BOX = CGRect(x: 0, y: 0, width: 20, height: 15)
+   
+    static let COLLECTABLE_SHORT_AXIS_LENGTH = 15.0
+    static let COLLECTABLE_LONG_AXIS_LENGTH = 20.0
+    static let VERTICAL_COLLECTABLE_BOUNDING_BOX = CGRect(x: 0, y: 0, width: COLLECTABLE_SHORT_AXIS_LENGTH, height: COLLECTABLE_LONG_AXIS_LENGTH)
+    static let HORIZONTAL_COLLECTABLE_BOUNDING_BOX = CGRect(x: 0, y: 0, width: COLLECTABLE_LONG_AXIS_LENGTH, height: COLLECTABLE_SHORT_AXIS_LENGTH)
     
     static let PERCENT_BADDIES = 0.5
     static let COLLECTABLE_SPAWN_CHANCE = 0.05

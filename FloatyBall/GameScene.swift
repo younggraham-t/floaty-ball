@@ -81,23 +81,34 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         else {
             newCollectable = Baddy(moveDirection: moveDirection, speed: collectablesCurrentSpeed)
         }
+       
+        let randomInSide = randomizeSpawnLocationInSide(moveDirection: moveDirection)
         
         switch moveDirection {
         case .north:
-            let randomInSide = Double.random(in: frame.minX...frame.maxX)
-            newCollectable.position = CGPoint(x: randomInSide, y: frame.minY - Constants.VERTICAL_COLLECTABLE_BOUNDING_BOX.height)
+            newCollectable.position = CGPoint(x: randomInSide, y: frame.minY - Constants.COLLECTABLE_LONG_AXIS_LENGTH)
         case .south:
-            let randomInSide = Double.random(in: frame.minX...frame.maxX)
             newCollectable.position = CGPoint(x: randomInSide, y: frame.maxY)
         case .east:
-            let randomInSide = Double.random(in: frame.minY...frame.maxY)
-            newCollectable.position = CGPoint(x: frame.minX - Constants.HORIZONTAL_COLLECTABLE_BOUNDING_BOX.width, y: randomInSide)
+            newCollectable.position = CGPoint(x: frame.minX - Constants.COLLECTABLE_LONG_AXIS_LENGTH, y: randomInSide)
         case .west:
-            let randomInSide = Double.random(in: frame.minY...frame.maxY)
             newCollectable.position = CGPoint(x: frame.maxX, y: randomInSide)
         }
         collectables.insert(newCollectable)
         self.addChild(newCollectable)
+    }
+    
+    func randomizeSpawnLocationInSide(moveDirection: Direction) -> Double {
+        var randomInSide = 0.0
+        switch moveDirection {
+        case .north, .south:
+            let horizontalSpawnRange = Constants.COLLECTABLE_SHORT_AXIS_LENGTH+frame.minX...frame.maxX-Constants.COLLECTABLE_SHORT_AXIS_LENGTH
+            randomInSide = Double.random(in: horizontalSpawnRange)
+        case .east, .west:
+            let verticalSpawnRange = Constants.COLLECTABLE_SHORT_AXIS_LENGTH+frame.minY...frame.maxY-Constants.COLLECTABLE_SHORT_AXIS_LENGTH
+            randomInSide = Double.random(in: verticalSpawnRange)
+        }
+        return randomInSide
     }
     
     func randomizeMoveDirection() -> Direction {
@@ -122,7 +133,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            print("touch - began")
+//            print("touch - began")
 //            currentTouches.insert(touch)
             for directional in self.directionals {
                 
@@ -173,7 +184,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
 
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("touch - ended")
+//        print("touch - ended")
         for touch in touches {
             if let touchIndex = touchesToDirectionals.index(forKey: touch) {
                 touchesToDirectionals.remove(at: touchIndex)

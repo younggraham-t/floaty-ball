@@ -58,7 +58,7 @@ class CollectableObject: SKShapeNode, Collectable {
     }
     
     func createPath(moveDirection: Direction) {
-  
+        return
     }
     
     

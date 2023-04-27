@@ -83,7 +83,7 @@ class Ball : SKShapeNode {
     
     //returns whether the ball size overflowed
     func increaseBallSize() -> Bool {
-        print("increase")
+//        print("increase")
         if ballDiameter < Constants.BALL_SIZE_MAX_DIAMETER {
             ballDiameter += Constants.BALL_SIZE_DELTA
             updatePath()
@@ -111,7 +111,7 @@ class Ball : SKShapeNode {
     }
     
     func updatePath() {
-        print(ballDiameter)
+//        print(ballDiameter)
         let path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: ballDiameter, height: ballDiameter))
         self.path = path.cgPath
         self.physicsBody = SKPhysicsBody(polygonFrom: path.cgPath)
