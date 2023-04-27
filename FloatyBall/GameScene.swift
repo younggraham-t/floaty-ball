@@ -23,12 +23,12 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     var directionals = [Directional]()
     
-    var score = 0
+//    var score = 0
     var scoreLabel: SKLabelNode = SKLabelNode(text: "Score: 0")
     
     var collectablesCurrentSpeed = Constants.OBJECT_MOVE_SPEED
     
-    
+    var highScore: ScoreManager? = nil
     
 
     // ------------------- Updates --------------------
@@ -256,8 +256,9 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
                 for collectable in collectables {
                     collectable.updateSpeed(to: collectablesCurrentSpeed)
                 }
-                score += 1
-                scoreLabel.text = "Score: \(score)"
+                highScore?.increaseScore()
+                scoreLabel.text = "Score: \(highScore!.getCurrentScore())"
+                highScore?.updateLifeTimeHighScore()
             }
             return
             
@@ -280,23 +281,14 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     }
         
     func remove(node: SKNode) {
-//        switch node.name {
-//        case NodeNames.coin.rawValue:
-//            remove(coin: node)
-//            return
-//        case NodeNames.ship.rawValue, NodeNames.ghost.rawValue:
-//            node.removeFromParent()
-//            return
-//        case _:
-//            print("Invalid name")
-//            return
-//        }
+
         node.removeFromParent()
     }
 
     
     
     // ---------------- Game Start/ End -------------
+
     override func didMove(to view: SKView) {
         print("did move")
         view.isMultipleTouchEnabled = true
@@ -336,6 +328,8 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     }
     
     func stopGame() {
+        highScore?.updateLifeTimeHighScore()
+//        print(highScore?.lifeTimeHighScore)
         presentingView?.dismiss()
     }
 }

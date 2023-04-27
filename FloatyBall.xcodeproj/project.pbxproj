@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BF20553B29E835CE00B7392B /* FloatyBallApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20553A29E835CE00B7392B /* FloatyBallApp.swift */; };
-		BF20553D29E835CE00B7392B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20553C29E835CE00B7392B /* ContentView.swift */; };
+		BF20553D29E835CE00B7392B /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20553C29E835CE00B7392B /* StartView.swift */; };
 		BF20553F29E835D300B7392B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF20553E29E835D300B7392B /* Assets.xcassets */; };
 		BF20554229E835D300B7392B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF20554129E835D300B7392B /* Preview Assets.xcassets */; };
 		BF20554929E8395600B7392B /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20554829E8395600B7392B /* Ball.swift */; };
@@ -23,12 +23,13 @@
 		BF8AF7DF29F17973009C9D3D /* down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7DB29F17972009C9D3D /* down-arrow.png */; };
 		BF8AF7E029F17973009C9D3D /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7DC29F17972009C9D3D /* left-arrow.png */; };
 		BF8AF7E129F17973009C9D3D /* up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7DD29F17973009C9D3D /* up-arrow.png */; };
+		BF8AF7E329FA9D2A009C9D3D /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BF20553729E835CE00B7392B /* FloatyBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloatyBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF20553A29E835CE00B7392B /* FloatyBallApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatyBallApp.swift; sourceTree = "<group>"; };
-		BF20553C29E835CE00B7392B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BF20553C29E835CE00B7392B /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		BF20553E29E835D300B7392B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF20554129E835D300B7392B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BF20554829E8395600B7392B /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
@@ -43,6 +44,7 @@
 		BF8AF7DB29F17972009C9D3D /* down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-arrow.png"; sourceTree = "<group>"; };
 		BF8AF7DC29F17972009C9D3D /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
 		BF8AF7DD29F17973009C9D3D /* up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up-arrow.png"; sourceTree = "<group>"; };
+		BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				BF20553A29E835CE00B7392B /* FloatyBallApp.swift */,
-				BF20553C29E835CE00B7392B /* ContentView.swift */,
+				BF20553C29E835CE00B7392B /* StartView.swift */,
 				BF20553E29E835D300B7392B /* Assets.xcassets */,
 				BF20554029E835D300B7392B /* Preview Content */,
 				BF20554829E8395600B7392B /* Ball.swift */,
@@ -91,6 +93,7 @@
 				BF8AF7DC29F17972009C9D3D /* left-arrow.png */,
 				BF8AF7DA29F17972009C9D3D /* right-arrow.png */,
 				BF8AF7DD29F17973009C9D3D /* up-arrow.png */,
+				BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */,
 			);
 			path = FloatyBall;
 			sourceTree = "<group>";
@@ -182,7 +185,8 @@
 				BF20554D29E83A7600B7392B /* GameScene.swift in Sources */,
 				BF20554B29E83A5600B7392B /* GameplayView.swift in Sources */,
 				BF20554929E8395600B7392B /* Ball.swift in Sources */,
-				BF20553D29E835CE00B7392B /* ContentView.swift in Sources */,
+				BF8AF7E329FA9D2A009C9D3D /* ScoreManager.swift in Sources */,
+				BF20553D29E835CE00B7392B /* StartView.swift in Sources */,
 				BF8AF7D729F16847009C9D3D /* Directional.swift in Sources */,
 				BF20553B29E835CE00B7392B /* FloatyBallApp.swift in Sources */,
 				BF20555129E840ED00B7392B /* Collectable.swift in Sources */,

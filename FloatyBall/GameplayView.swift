@@ -12,10 +12,17 @@ struct GameplayView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    var highScore: ScoreManager
+    
+    init(highScore: ScoreManager) {
+        self.highScore = highScore
+    }
+    
     var gameScene: GameScene {
         let gameScene = GameScene()
         gameScene.scaleMode = .resizeFill
         gameScene.presentingView = self
+        gameScene.highScore = highScore
         return gameScene
     }
     
@@ -26,6 +33,6 @@ struct GameplayView: View {
 
 struct GameplayView_Previews: PreviewProvider {
     static var previews: some View {
-        GameplayView()
+        GameplayView(highScore: ScoreManager())
     }
 }
