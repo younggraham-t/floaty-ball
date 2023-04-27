@@ -24,6 +24,7 @@
 		BF8AF7E029F17973009C9D3D /* left-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7DC29F17972009C9D3D /* left-arrow.png */; };
 		BF8AF7E129F17973009C9D3D /* up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7DD29F17973009C9D3D /* up-arrow.png */; };
 		BF8AF7E329FA9D2A009C9D3D /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */; };
+		BF8AF7E529FAABAF009C9D3D /* final-proposal.txt in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		BF8AF7DC29F17972009C9D3D /* left-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left-arrow.png"; sourceTree = "<group>"; };
 		BF8AF7DD29F17973009C9D3D /* up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up-arrow.png"; sourceTree = "<group>"; };
 		BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
+		BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "final-proposal.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				BF8AF7DA29F17972009C9D3D /* right-arrow.png */,
 				BF8AF7DD29F17973009C9D3D /* up-arrow.png */,
 				BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */,
+				BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */,
 			);
 			path = FloatyBall;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				BF8AF7DE29F17973009C9D3D /* right-arrow.png in Resources */,
 				BF8AF7E029F17973009C9D3D /* left-arrow.png in Resources */,
 				BF20554229E835D300B7392B /* Preview Assets.xcassets in Resources */,
+				BF8AF7E529FAABAF009C9D3D /* final-proposal.txt in Resources */,
 				BF20553F29E835D300B7392B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
