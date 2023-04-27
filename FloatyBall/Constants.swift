@@ -23,6 +23,7 @@ struct Constants {
     static let BALL_SIZE_DELTA = 5
     static let BALL_SIZE_MAX_DIAMETER = (DEFAULT_BALL_RADIUS + (BALL_SIZE_DELTA * 2)) * 2
     
+    static let TOUCH_TOLERANCE = 75.0
 }
 
 enum NodeNames: String {

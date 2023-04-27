@@ -118,7 +118,17 @@ class Ball : SKShapeNode {
     }
     
     func stopMovement() {
-        self.velocity = .zero
+        stopXMovement()
+        stopYMovement()
+    }
+    
+    func stopXMovement() {
+        self.velocity.dx = .zero
+    }
+    
+    func stopYMovement() {
+        self.velocity.dy = .zero
+        
     }
     
 }

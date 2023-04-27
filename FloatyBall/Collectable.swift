@@ -58,13 +58,7 @@ class CollectableObject: SKShapeNode, Collectable {
     }
     
     func createPath(moveDirection: Direction) {
-        switch moveDirection {
-        case .north, .south:
-            self.path = UIBezierPath(ovalIn: Constants.VERTICAL_COLLECTABLE_BOUNDING_BOX).cgPath
-        case .east, .west:
-            self.path = UIBezierPath(ovalIn: Constants.HORIZONTAL_COLLECTABLE_BOUNDING_BOX).cgPath
-        }
-        
+  
     }
     
     

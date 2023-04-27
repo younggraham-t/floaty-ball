@@ -19,7 +19,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     var collectables = Set<CollectableObject>() //uses set to make removal easier (for memory management)
     
-    var currentTouches: Set<UITouch> = Set()
+    var touchesToDirectionals = [UITouch: Directional]()
     
     var directionals = [Directional]()
     
@@ -27,6 +27,8 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     var scoreLabel: SKLabelNode = SKLabelNode(text: "Score: 0")
     
     var collectablesCurrentSpeed = Constants.OBJECT_MOVE_SPEED
+    
+    
     
 
     // ------------------- Updates --------------------
@@ -43,23 +45,19 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         
         // update all the collectables
         for collectable in collectables {
-
-            if collectable.update(screen: self.frame) {
+            if collectable.update(screen: self.frame) { // update returns true if it leaves the screen
                 collectable.removeFromParent()
                 collectables.remove(collectable)
             }
-            
         }
         
         //check all the touches for if a direction is being pressed
-        for touch in currentTouches {
-            for directional in directionals {
-                if closeEnough(directional, touch) {
-//                    print("touched the directional")
-                    let direction = directional.direction
-                    ball.moveIn(direction: direction, screen: self.frame)
-                }
+        for touch in touchesToDirectionals.keys {
+            if let directional = touchesToDirectionals[touch] {
+                let direction = directional.direction
+                ball.moveIn(direction: direction, screen: self.frame)
             }
+            
         }
         
         if collectableTime != 0.0 && collectableTime + Constants.SPAWN_COLLECTABLE_TIME < currentTime {
@@ -103,24 +101,16 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     }
     
     func randomizeMoveDirection() -> Direction {
-        let isHorizontal = Double.random(in: 0...1) < 0.5
-        let isMin = Double.random(in: 0...1) < 0.5
+        let isHorizontal = Double.random(in: 0...1) < 0.5 // 50% chance for vertical or horizontal
+        let isMin = Double.random(in: 0...1) < 0.5 // 50% chance for min to max
         let moveDirection: Direction
         if isHorizontal {
-            if isMin { // if it starts at the min and moves to the max
-                moveDirection = .east
-            }
-            else {
-                moveDirection = .west
-            }
+            // if it starts at the min and moves to the max
+            moveDirection = isMin ? .east : .west
         }
         else {
-            if isMin { // if it starts at the min and moves to the max
-                moveDirection = .north
-            }
-            else {
-                moveDirection = .south
-            }
+            // if it starts at the min and moves to the max
+            moveDirection = isMin ? .south : .north
         }
         return moveDirection
     }
@@ -133,30 +123,61 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             print("touch - began")
-            currentTouches.insert(touch)
-            
+//            currentTouches.insert(touch)
+            for directional in self.directionals {
+                
+                if closeEnough(directional, touch) {
+//                    print("touched the directional")
+                    touchesToDirectionals[touch] = directional
+                }
+            }
         }
     }
     
     func closeEnough(_ target: SKSpriteNode, _ touch: UITouch) -> Bool {
-        let tolerance = 100.0
+        
         let targetPosition = target.position
         let touchPosition = touch.location(in: self)
 
-        let closeInX = abs(targetPosition.x - touchPosition.x) <= tolerance
-        let closeInY = abs(targetPosition.y - touchPosition.y) <= tolerance
+        let closeInX = abs(targetPosition.x - touchPosition.x) <= Constants.TOUCH_TOLERANCE
+        let closeInY = abs(targetPosition.y - touchPosition.y) <= Constants.TOUCH_TOLERANCE
         
         return closeInX && closeInY
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        print("touch - moved")
+    touchLoop:
+        for touch in touches {
+            if let directional = touchesToDirectionals[touch] {
+                // print("touch in touches to directionals")
+                if !closeEnough(directional, touch) {
+                  
+                    ball.stopMovement()
+                    
+                    touchesToDirectionals.removeValue(forKey: touch)
+
+                    
+                }
+            }
+            else {
+                for directional in self.directionals {
+                    if closeEnough(directional, touch) {
+                      touchesToDirectionals[touch] = directional
+                      continue touchLoop
+                    }
+                }
+            }
+        }
+        
 
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touch - ended")
         for touch in touches {
-            currentTouches.remove(touch)
+            if let touchIndex = touchesToDirectionals.index(forKey: touch) {
+                touchesToDirectionals.remove(at: touchIndex)
+            }
         }
         self.ball.stopMovement()
     }
