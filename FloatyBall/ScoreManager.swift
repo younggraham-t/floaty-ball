@@ -6,22 +6,35 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 
 class ScoreManager: ObservableObject {
     
+    
+    
     @Published var lifeTimeHighScore: Int
-    @Published private var currentScore: Int
+    private var currentScore: Int
     
+    @Published var difficulty: Difficulty = .Normal
     
-    let lifeTimeHighScoreKey = "highestScore"
+
     
     init() {
-        lifeTimeHighScore = UserDefaults.standard.integer(forKey: lifeTimeHighScoreKey)
-//        lifeTimeHighScore = 0
+        let diff: Difficulty = .Normal
+        self.difficulty = diff
+        
         currentScore = 0
+        lifeTimeHighScore = UserDefaults.standard.integer(forKey: diff.rawValue)
     }
+    
+    func setDifficulty(newDifficulty: Difficulty) {
+        self.difficulty = newDifficulty
+        lifeTimeHighScore = UserDefaults.standard.integer(forKey: self.difficulty.rawValue)
+    }
+   
+    
     
     func increaseScore() {
         currentScore += 1
@@ -29,14 +42,14 @@ class ScoreManager: ObservableObject {
     
     func updateLifeTimeHighScore() {
         if currentScore >= lifeTimeHighScore {
-            UserDefaults.standard.set(currentScore, forKey: lifeTimeHighScoreKey)
-            lifeTimeHighScore = UserDefaults.standard.integer(forKey: lifeTimeHighScoreKey)
+        
+            UserDefaults.standard.set(currentScore, forKey: self.difficulty.rawValue)
+            lifeTimeHighScore = UserDefaults.standard.integer(forKey: self.difficulty.rawValue)
+        
+            
         }
     }
-    
-    func getHighScore() -> Int {
-        return lifeTimeHighScore
-    }
+
     
     func getCurrentScore() -> Int {
         return currentScore

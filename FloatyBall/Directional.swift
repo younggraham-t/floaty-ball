@@ -27,9 +27,27 @@ class Directional: SKSpriteNode {
             texture = SKTexture(imageNamed: "right-arrow.png")
         case .west:
             texture = SKTexture(imageNamed: "left-arrow.png")
+        case .northeast, .northwest:
+            texture = SKTexture(imageNamed: "up-arrow.png")
+        case .southeast, .southwest:
+            texture = SKTexture(imageNamed: "down-arrow.png")
         }
         
         super.init(texture: texture, color: .clear, size: CGSize(width: 100, height: 100))
+        
+        switch direction {
+        case .northeast:
+            self.zRotation = -45
+        case .northwest:
+            self.zRotation = 45
+        case .southeast:
+            self.zRotation = 45
+        case .southwest:
+            self.zRotation = -45
+        case _:
+            zRotation = 0
+        }
+        
         
 //        let path = UIBezierPath()
 //        path.move(to: CGPoint(x: 0.0, y: r * 2.0))

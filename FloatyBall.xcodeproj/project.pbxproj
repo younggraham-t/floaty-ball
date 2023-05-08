@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF06097629FD6F1F008577C9 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF06097529FD6F1F008577C9 /* GameSettings.swift */; };
+		BF06097A29FDDFCA008577C9 /* PauseMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF06097929FDDFCA008577C9 /* PauseMenu.swift */; };
+		BF06097C29FDF0F3008577C9 /* PauseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF06097B29FDF0F2008577C9 /* PauseButton.swift */; };
 		BF20553B29E835CE00B7392B /* FloatyBallApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20553A29E835CE00B7392B /* FloatyBallApp.swift */; };
 		BF20553D29E835CE00B7392B /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20553C29E835CE00B7392B /* StartView.swift */; };
 		BF20553F29E835D300B7392B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF20553E29E835D300B7392B /* Assets.xcassets */; };
@@ -16,6 +19,10 @@
 		BF20554D29E83A7600B7392B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20554C29E83A7600B7392B /* GameScene.swift */; };
 		BF20554F29E8403000B7392B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20554E29E8403000B7392B /* Constants.swift */; };
 		BF20555129E840ED00B7392B /* Collectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF20555029E840ED00B7392B /* Collectable.swift */; };
+		BF3F9B5A2A01368C006E44CC /* InGameMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3F9B592A01368C006E44CC /* InGameMenu.swift */; };
+		BF3F9B5E2A015990006E44CC /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3F9B5D2A015990006E44CC /* SettingsMenu.swift */; };
+		BF3F9B602A0160F1006E44CC /* ControlSettingsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3F9B5F2A0160F1006E44CC /* ControlSettingsScene.swift */; };
+		BF3F9B622A01610E006E44CC /* ControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3F9B612A01610E006E44CC /* ControlManager.swift */; };
 		BF59752229EEC017005E7473 /* Goody.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF59752129EEC017005E7473 /* Goody.swift */; };
 		BF59752429EECEEB005E7473 /* Baddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF59752329EECEEB005E7473 /* Baddy.swift */; };
 		BF8AF7D729F16847009C9D3D /* Directional.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF7D629F16847009C9D3D /* Directional.swift */; };
@@ -25,9 +32,14 @@
 		BF8AF7E129F17973009C9D3D /* up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7DD29F17973009C9D3D /* up-arrow.png */; };
 		BF8AF7E329FA9D2A009C9D3D /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */; };
 		BF8AF7E529FAABAF009C9D3D /* final-proposal.txt in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */; };
+		BFF5BB402A02A564003BAEF8 /* ControlsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF5BB3F2A02A564003BAEF8 /* ControlsMenu.swift */; };
+		BFF5BB422A03ED82003BAEF8 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF5BB412A03ED82003BAEF8 /* ControlView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF06097529FD6F1F008577C9 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		BF06097929FDDFCA008577C9 /* PauseMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseMenu.swift; sourceTree = "<group>"; };
+		BF06097B29FDF0F2008577C9 /* PauseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseButton.swift; sourceTree = "<group>"; };
 		BF20553729E835CE00B7392B /* FloatyBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FloatyBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF20553A29E835CE00B7392B /* FloatyBallApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatyBallApp.swift; sourceTree = "<group>"; };
 		BF20553C29E835CE00B7392B /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -38,6 +50,10 @@
 		BF20554C29E83A7600B7392B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		BF20554E29E8403000B7392B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BF20555029E840ED00B7392B /* Collectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectable.swift; sourceTree = "<group>"; };
+		BF3F9B592A01368C006E44CC /* InGameMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMenu.swift; sourceTree = "<group>"; };
+		BF3F9B5D2A015990006E44CC /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
+		BF3F9B5F2A0160F1006E44CC /* ControlSettingsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlSettingsScene.swift; sourceTree = "<group>"; };
+		BF3F9B612A01610E006E44CC /* ControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlManager.swift; sourceTree = "<group>"; };
 		BF59752129EEC017005E7473 /* Goody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goody.swift; sourceTree = "<group>"; };
 		BF59752329EECEEB005E7473 /* Baddy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Baddy.swift; sourceTree = "<group>"; };
 		BF8AF7D629F16847009C9D3D /* Directional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directional.swift; sourceTree = "<group>"; };
@@ -47,6 +63,8 @@
 		BF8AF7DD29F17973009C9D3D /* up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up-arrow.png"; sourceTree = "<group>"; };
 		BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
 		BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "final-proposal.txt"; sourceTree = "<group>"; };
+		BFF5BB3F2A02A564003BAEF8 /* ControlsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsMenu.swift; sourceTree = "<group>"; };
+		BFF5BB412A03ED82003BAEF8 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,24 +97,14 @@
 		BF20553929E835CE00B7392B /* FloatyBall */ = {
 			isa = PBXGroup;
 			children = (
-				BF20553A29E835CE00B7392B /* FloatyBallApp.swift */,
-				BF20553C29E835CE00B7392B /* StartView.swift */,
-				BF20553E29E835D300B7392B /* Assets.xcassets */,
-				BF20554029E835D300B7392B /* Preview Content */,
-				BF20554829E8395600B7392B /* Ball.swift */,
-				BF20554A29E83A5600B7392B /* GameplayView.swift */,
-				BF20554C29E83A7600B7392B /* GameScene.swift */,
-				BF20554E29E8403000B7392B /* Constants.swift */,
-				BF20555029E840ED00B7392B /* Collectable.swift */,
-				BF59752129EEC017005E7473 /* Goody.swift */,
-				BF59752329EECEEB005E7473 /* Baddy.swift */,
-				BF8AF7D629F16847009C9D3D /* Directional.swift */,
-				BF8AF7DB29F17972009C9D3D /* down-arrow.png */,
-				BF8AF7DC29F17972009C9D3D /* left-arrow.png */,
-				BF8AF7DA29F17972009C9D3D /* right-arrow.png */,
-				BF8AF7DD29F17973009C9D3D /* up-arrow.png */,
-				BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */,
+				BF3F9B5829FF3BFA006E44CC /* Main */,
+				BF3F9B5329FF3A5E006E44CC /* Views-Scenes */,
+				BF3F9B5629FF3B1C006E44CC /* Game Management */,
+				BF3F9B5429FF3A92006E44CC /* Game Objects */,
+				BF3F9B5529FF3AC1006E44CC /* In-Game Menu */,
+				BF3F9B5729FF3B9C006E44CC /* Resources */,
 				BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */,
+				BF20554029E835D300B7392B /* Preview Content */,
 			);
 			path = FloatyBall;
 			sourceTree = "<group>";
@@ -104,9 +112,76 @@
 		BF20554029E835D300B7392B /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				BF20553E29E835D300B7392B /* Assets.xcassets */,
 				BF20554129E835D300B7392B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BF3F9B5329FF3A5E006E44CC /* Views-Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				BF20553C29E835CE00B7392B /* StartView.swift */,
+				BF20554A29E83A5600B7392B /* GameplayView.swift */,
+				BF20554C29E83A7600B7392B /* GameScene.swift */,
+				BF3F9B5F2A0160F1006E44CC /* ControlSettingsScene.swift */,
+				BFF5BB412A03ED82003BAEF8 /* ControlView.swift */,
+			);
+			name = "Views-Scenes";
+			sourceTree = "<group>";
+		};
+		BF3F9B5429FF3A92006E44CC /* Game Objects */ = {
+			isa = PBXGroup;
+			children = (
+				BF20555029E840ED00B7392B /* Collectable.swift */,
+				BF59752129EEC017005E7473 /* Goody.swift */,
+				BF59752329EECEEB005E7473 /* Baddy.swift */,
+				BF20554829E8395600B7392B /* Ball.swift */,
+				BF8AF7D629F16847009C9D3D /* Directional.swift */,
+			);
+			name = "Game Objects";
+			sourceTree = "<group>";
+		};
+		BF3F9B5529FF3AC1006E44CC /* In-Game Menu */ = {
+			isa = PBXGroup;
+			children = (
+				BF3F9B592A01368C006E44CC /* InGameMenu.swift */,
+				BF06097929FDDFCA008577C9 /* PauseMenu.swift */,
+				BF06097B29FDF0F2008577C9 /* PauseButton.swift */,
+				BF3F9B5D2A015990006E44CC /* SettingsMenu.swift */,
+				BFF5BB3F2A02A564003BAEF8 /* ControlsMenu.swift */,
+			);
+			path = "In-Game Menu";
+			sourceTree = "<group>";
+		};
+		BF3F9B5629FF3B1C006E44CC /* Game Management */ = {
+			isa = PBXGroup;
+			children = (
+				BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */,
+				BF06097529FD6F1F008577C9 /* GameSettings.swift */,
+				BF20554E29E8403000B7392B /* Constants.swift */,
+				BF3F9B612A01610E006E44CC /* ControlManager.swift */,
+			);
+			name = "Game Management";
+			sourceTree = "<group>";
+		};
+		BF3F9B5729FF3B9C006E44CC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BF8AF7DB29F17972009C9D3D /* down-arrow.png */,
+				BF8AF7DC29F17972009C9D3D /* left-arrow.png */,
+				BF8AF7DA29F17972009C9D3D /* right-arrow.png */,
+				BF8AF7DD29F17973009C9D3D /* up-arrow.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		BF3F9B5829FF3BFA006E44CC /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				BF20553A29E835CE00B7392B /* FloatyBallApp.swift */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,15 +260,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF59752229EEC017005E7473 /* Goody.swift in Sources */,
+				BF3F9B5A2A01368C006E44CC /* InGameMenu.swift in Sources */,
+				BF3F9B5E2A015990006E44CC /* SettingsMenu.swift in Sources */,
 				BF59752429EECEEB005E7473 /* Baddy.swift in Sources */,
+				BFF5BB422A03ED82003BAEF8 /* ControlView.swift in Sources */,
 				BF20554D29E83A7600B7392B /* GameScene.swift in Sources */,
+				BF06097C29FDF0F3008577C9 /* PauseButton.swift in Sources */,
 				BF20554B29E83A5600B7392B /* GameplayView.swift in Sources */,
 				BF20554929E8395600B7392B /* Ball.swift in Sources */,
 				BF8AF7E329FA9D2A009C9D3D /* ScoreManager.swift in Sources */,
 				BF20553D29E835CE00B7392B /* StartView.swift in Sources */,
 				BF8AF7D729F16847009C9D3D /* Directional.swift in Sources */,
+				BF06097629FD6F1F008577C9 /* GameSettings.swift in Sources */,
+				BF3F9B602A0160F1006E44CC /* ControlSettingsScene.swift in Sources */,
+				BFF5BB402A02A564003BAEF8 /* ControlsMenu.swift in Sources */,
 				BF20553B29E835CE00B7392B /* FloatyBallApp.swift in Sources */,
+				BF06097A29FDDFCA008577C9 /* PauseMenu.swift in Sources */,
 				BF20555129E840ED00B7392B /* Collectable.swift in Sources */,
+				BF3F9B622A01610E006E44CC /* ControlManager.swift in Sources */,
 				BF20554F29E8403000B7392B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,7 +420,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.elon.cs.FloatyBall;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.elon.cs.FloatyBall3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -365,7 +449,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.elon.cs.FloatyBall;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.elon.cs.FloatyBall3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

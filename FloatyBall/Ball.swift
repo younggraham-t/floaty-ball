@@ -13,7 +13,9 @@ class Ball : SKShapeNode {
     
     var velocity: CGVector = .zero
     
-    var ballDiameter = Constants.DEFAULT_BALL_RADIUS * 2
+    var ballDiameter = Constants.DEFAULT_BALL_DIAMETER
+    
+    var moveSpeed: Double = Constants.OBJECT_MOVE_SPEED
 
     override init() {
         super.init()
@@ -52,15 +54,15 @@ class Ball : SKShapeNode {
                 self.velocity.dy = .zero
             }
             else {
-                self.velocity.dy = Constants.OBJECT_MOVE_SPEED
+                self.velocity.dy = moveSpeed
             }
         case .south:
-            if self.position.y < screen.minY + Double(Constants.DEFAULT_BALL_RADIUS) {
+            if self.position.y < screen.minY + Double(Constants.DEFAULT_BALL_DIAMETER) {
 //                print("off bottom")
                 self.velocity.dy = .zero
             }
             else {
-                self.velocity.dy = -Constants.OBJECT_MOVE_SPEED
+                self.velocity.dy = -moveSpeed
             }
         case .east:
             if self.position.x > screen.maxX - self.frame.width {
@@ -68,15 +70,67 @@ class Ball : SKShapeNode {
                 self.velocity.dx = .zero
             }
             else {
-                self.velocity.dx = Constants.OBJECT_MOVE_SPEED
+                self.velocity.dx = moveSpeed
             }
         case .west:
-            if self.position.x < screen.minX + Double(Constants.DEFAULT_BALL_RADIUS) {
+            if self.position.x < screen.minX + Double(Constants.DEFAULT_BALL_DIAMETER) {
 //                print("off left")
                 self.velocity.dx = .zero
             }
             else {
-                self.velocity.dx = -Constants.OBJECT_MOVE_SPEED
+                self.velocity.dx = -moveSpeed
+            }
+        case .northwest:
+            if self.position.x < screen.minX + Double(Constants.DEFAULT_BALL_DIAMETER) {
+//                print("off left")
+                self.velocity.dx = .zero
+            }
+            else if self.position.y > screen.maxY - self.frame.height {
+//                print("off top")
+                self.velocity.dy = .zero
+            }
+            else {
+                self.velocity.dx = -moveSpeed
+                self.velocity.dy = moveSpeed
+            }
+        case .northeast:
+            if self.position.y > screen.maxY - self.frame.height {
+//                print("off top")
+                self.velocity.dy = .zero
+            }
+            else if self.position.x > screen.maxX - self.frame.width {
+//                print("off right")
+                self.velocity.dx = .zero
+            }
+            else {
+                self.velocity.dx = moveSpeed
+                self.velocity.dy = moveSpeed
+            }
+        case .southwest:
+            if self.position.x < screen.minX + Double(Constants.DEFAULT_BALL_DIAMETER) {
+//                print("off left")
+                self.velocity.dx = .zero
+            }
+            else if self.position.y < screen.minY + Double(Constants.DEFAULT_BALL_DIAMETER) {
+//                print("off bottom")
+                self.velocity.dy = .zero
+            }
+            else {
+                self.velocity.dx = -moveSpeed
+                self.velocity.dy = -moveSpeed
+            }
+        case .southeast:
+            if self.position.x > screen.maxX - self.frame.width {
+//                print("off right")
+               self.velocity.dx = .zero
+            }
+            else if self.position.y < screen.minY + Double(Constants.DEFAULT_BALL_DIAMETER) {
+//                print("off bottom")
+                self.velocity.dy = .zero
+            }
+            else {
+                self.velocity.dx = moveSpeed
+                self.velocity.dy = -moveSpeed
             }
         }
     }
@@ -86,11 +140,17 @@ class Ball : SKShapeNode {
 //        print("increase")
         if ballDiameter < Constants.BALL_SIZE_MAX_DIAMETER {
             ballDiameter += Constants.BALL_SIZE_DELTA
+            //decrease the ball speed
+            if moveSpeed > Constants.MIN_BALL_SPEED {
+                moveSpeed -= Constants.DELTA_BALL_SPEED
+            }
             updatePath()
             return false
         }
         else {
-            ballDiameter = Constants.DEFAULT_BALL_RADIUS * 2
+            ballDiameter = Constants.DEFAULT_BALL_DIAMETER
+            //reset the ball speed
+            moveSpeed = Constants.OBJECT_MOVE_SPEED
             updatePath()
             return true
         }
@@ -99,8 +159,10 @@ class Ball : SKShapeNode {
     
     //returns whether the ball size overflowed
     func decreaseBallSize() -> Bool {
-        if ballDiameter > Constants.DEFAULT_BALL_RADIUS {
+        if ballDiameter > Constants.BALL_SIZE_MIN_DIAMETER {
             ballDiameter -= Constants.BALL_SIZE_DELTA
+            //increase the ball speed
+            moveSpeed += Constants.DELTA_BALL_SPEED
             updatePath()
             return false
         }

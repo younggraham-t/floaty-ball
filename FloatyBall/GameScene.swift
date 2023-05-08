@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class GameScene : SKScene, SKPhysicsContactDelegate {
+class GameScene : SKScene, SKPhysicsContactDelegate, SceneWithDirectional {
     
     //------------------ Variables -------------------
     
@@ -26,16 +26,35 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
 //    var score = 0
     var scoreLabel: SKLabelNode = SKLabelNode(text: "Score: 0")
     
-    var collectablesCurrentSpeed = Constants.OBJECT_MOVE_SPEED
-    
-    var highScore: ScoreManager? = nil
-    
-
-    // ------------------- Updates --------------------
+    var collectablesCurrentSpeed = 0.0
     
     var collectableTime = 0.0
     
+    var highScore: ScoreManager? = nil
+    
+    var settings: Settings? = nil
+    
+    var controlScene: ControlSettingsScene? = nil
+    
+    
+    var pauseMenu = PauseMenu()
+        
+    var pauseButton: PauseButton = PauseButton()
+    
+    var settingsMenu = SettingsMenu()
+
+    // ------------------- Updates --------------------
+    
+    
+    
     override func update(_ currentTime: TimeInterval) {
+        if pauseMenu.isDisplayed {
+            for collectable in collectables {
+                collectable.stopMovement()
+            }
+            return
+        }
+        
         if collectableTime == 0.0 {
             collectableTime = currentTime
         }
@@ -71,7 +90,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     }
     
     func spawnCollectable() {
-        let isGoody = Double.random(in: 0...1) < Constants.PERCENT_BADDIES
+        let isGoody = Double.random(in: 0...1) > settings!.percentBaddies
         let newCollectable: CollectableObject
         let moveDirection = randomizeMoveDirection()
         
@@ -93,6 +112,8 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             newCollectable.position = CGPoint(x: frame.minX - Constants.COLLECTABLE_LONG_AXIS_LENGTH, y: randomInSide)
         case .west:
             newCollectable.position = CGPoint(x: frame.maxX, y: randomInSide)
+        case _:
+            print("shouldn't happen in spawn collectable")
         }
         collectables.insert(newCollectable)
         self.addChild(newCollectable)
@@ -107,6 +128,8 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         case .east, .west:
             let verticalSpawnRange = Constants.COLLECTABLE_SHORT_AXIS_LENGTH+frame.minY...frame.maxY-Constants.COLLECTABLE_SHORT_AXIS_LENGTH
             randomInSide = Double.random(in: verticalSpawnRange)
+        case _:
+            print("shouldn't happen in randomize spawn location in side")
         }
         return randomInSide
     }
@@ -132,8 +155,14 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+
         for touch in touches {
-//            print("touch - began")
+            if closeEnough(pauseButton, touch) {
+                pauseGame()
+                return
+            }
+            //            print("touch - began")
 //            currentTouches.insert(touch)
             for directional in self.directionals {
                 
@@ -145,7 +174,18 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func closeEnough(_ target: SKSpriteNode, _ touch: UITouch) -> Bool {
+//    func closeEnough(_ target: SKSpriteNode, _ touch: UITouch) -> Bool {
+//
+//        let targetPosition = target.position
+//        let touchPosition = touch.location(in: self)
+//
+//        let closeInX = abs(targetPosition.x - touchPosition.x) <= Constants.TOUCH_TOLERANCE
+//        let closeInY = abs(targetPosition.y - touchPosition.y) <= Constants.TOUCH_TOLERANCE
+//
+//        return closeInX && closeInY
+//    }
+    
+    func closeEnough(_ target: SKNode, _ touch: UITouch) -> Bool {
         
         let targetPosition = target.position
         let touchPosition = touch.location(in: self)
@@ -252,10 +292,13 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
             collectables.remove(nonBallNode as! CollectableObject)
             let didOverflow = ball.increaseBallSize()
             if didOverflow {
-                collectablesCurrentSpeed += Constants.DELTA_OBJECT_SPEED
-                for collectable in collectables {
-                    collectable.updateSpeed(to: collectablesCurrentSpeed)
+                if collectablesCurrentSpeed < Constants.COLLECTABLE_MAX_SPEED {
+                    collectablesCurrentSpeed += settings!.deltaMoveSpeed
+                    for collectable in collectables {
+                        collectable.updateSpeed(to: collectablesCurrentSpeed)
+                    }
                 }
+                
                 highScore?.increaseScore()
                 scoreLabel.text = "Score: \(highScore!.getCurrentScore())"
                 highScore?.updateLifeTimeHighScore()
@@ -292,44 +335,146 @@ class GameScene : SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         print("did move")
         view.isMultipleTouchEnabled = true
+        setupGame()
+        
+
+    }
+    
+    func setupGame() {
+        setupVariables()
+        self.collectablesCurrentSpeed = settings!.collectableMoveSpeed
+        
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        ball.position = CGPoint(x: frame.midX, y: frame.midY)
-        self.addChild(ball)
         
         scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY + 50)
         scoreLabel.zPosition = 1
         addChild(scoreLabel)
         
-        createDirectionals()
-
+        controlScene?.controlManager.createDirectionals(in: self)
+        
+        pauseButton.position = CGPoint(x: frame.minX + 50, y: frame.maxY - 50)
+        pauseButton.name = NodeNames.button.rawValue
+        pauseButton.zPosition = 1
+        pauseButton.gameScene = self
+        addChild(pauseButton)
+        
+//        pauseMenu.displayingScene = self
+        pauseMenu.position = CGPoint(x: frame.midX, y: frame.midY)
+        pauseMenu.zPosition = 1
+//        pauseMenu.scaleMode = .resizeFill
+//        settingsMenu.displayingScene = self
+        settingsMenu.position = CGPoint(x: frame.midX, y: frame.midY)
+        settingsMenu.zPosition = 1
     }
     
-    func createDirectionals() {
-        for direction in Direction.allCases {
-            let newDirectional = Directional(direction: direction)
-            switch direction {
-            case .east:
-                newDirectional.position = CGPoint(x: self.frame.minX + 150, y: self.frame.minY + 50)
-            case .west:
-                newDirectional.position = CGPoint(x: self.frame.minX + 50, y: self.frame.minY + 50)
-            case .north:
-                newDirectional.position = CGPoint(x: self.frame.maxX - 50, y: self.frame.minY + 150)
-            case .south:
-                newDirectional.position = CGPoint(x: self.frame.maxX - 50, y: self.frame.minY + 50)
-            }
-            newDirectional.zPosition = 1
-            directionals.append(newDirectional)
-            addChild(newDirectional)
-
+    func addDirectional(_ directional: Directional) {
+        directionals.append(directional)
+    }
+    
+    func removeDirectionals() {
+        for directional in directionals {
+            directional.removeFromParent()
         }
+        directionals.removeAll()
+    }
+
     
+    func setupVariables() {
+        pauseMenu.stopDisplayingIn(scene: self)
+        for child in children {
+            child.removeFromParent()
+        }
+        ball = Ball()
+        ball.position = CGPoint(x: frame.midX, y: frame.midY)
+        self.addChild(ball)
+        
+        collectables = Set<CollectableObject>() //uses set to make removal easier (for memory management)
+        
+        touchesToDirectionals = [UITouch: Directional]()
+        
+        directionals = [Directional]()
+        
+    //    var score = 0
+        scoreLabel = SKLabelNode(text: "Score: 0")
+        
+        collectablesCurrentSpeed = 0.0
+        
+        collectableTime = 0.0
+        
+        print(pauseMenu.isDisplayed)
     }
     
+    func restart() {
+//        resumeGame()
+        setupGame()
+    }
+   
     func stopGame() {
         highScore?.updateLifeTimeHighScore()
-//        print(highScore?.lifeTimeHighScore)
         presentingView?.dismiss()
+    }
+    
+    //-------------------- IN GAME MENUS -------------------------
+    
+   
+    
+    func pauseGame() {
+        print("pause game")
+        remove(node: pauseButton)
+//        print(pauseMenu.parent)
+//        pauseMenu.move(toParent: self)
+        pauseMenu.displayTo(scene: self)
+        
+        for directional in directionals {
+            remove(node: directional)
+        }
+        for collectable in collectables {
+            collectable.setColorParams(strokeColor: .gray, fillColor: .gray)
+        }
+        ball.strokeColor = .gray
+        ball.fillColor = .gray
+    }
+    
+    func resumeGame() {
+        remove(node: pauseMenu)
+        addChild(pauseButton)
+        
+        pauseMenu.stopDisplayingIn(scene: self)
+        
+        for directional in directionals {
+            addChild(directional)
+        }
+        
+        for collectable in collectables {
+            if collectable is Goody {
+                collectable.setColorParams(strokeColor: .white, fillColor: .green)
+            }
+            else {
+                collectable.setColorParams(strokeColor: .black, fillColor: .red)
+            }
+        }
+        ball.strokeColor = .white
+        ball.fillColor = .blue
+    }
+    
+    func displaySettingsMenu() {
+        guard pauseMenu.isDisplayed else { return }
+        
+        remove(node: pauseMenu)
+        settingsMenu.displayTo(scene: self)
+    }
+    
+    func returnFromSettingsToPauseMenu() {
+        guard settingsMenu.isDisplayed else { return }
+        
+        remove(node: settingsMenu)
+        addChild(pauseMenu)
+        settingsMenu.stopDisplayingIn(scene: self)
+    }
+    
+    func displayControlScene() {
+        
     }
 }
