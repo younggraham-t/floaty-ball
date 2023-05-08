@@ -45,6 +45,8 @@ class CollectableObject: SKShapeNode, Collectable {
             dx = moveSpeed
         case .west:
             dx = -moveSpeed
+        case _:
+            print("shouldn't happen")
         }
         
         return CGVector(dx: dx,  dy: dy)
@@ -93,6 +95,8 @@ class CollectableObject: SKShapeNode, Collectable {
             if self.position.x < screen.minX - Constants.HORIZONTAL_COLLECTABLE_BOUNDING_BOX.width {
                 return true
             }
+        case _:
+            print("shouldn't happen in collectable update")
         }
         return false
     }
@@ -100,5 +104,8 @@ class CollectableObject: SKShapeNode, Collectable {
     func updateSpeed(to newSpeed: Double) {
         self.moveSpeed = newSpeed
     }
-    
+   
+    func stopMovement() {
+        self.physicsBody?.velocity = .zero
+    }
 }

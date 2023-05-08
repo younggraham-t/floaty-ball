@@ -10,8 +10,9 @@ for my second idea I would like to imlement an in-game pause menu
     this would have options to resume, return to main menu, and restart
 
 for my third idea I would like to have control layout controls
-    This would entail being able to choose which side of the screen the
+    This would allow the user to be able to choose which side of the screen the
     up-down and left-right options would be. I.e up-down on left or up-down on right
+    and vice-versa for left-right
 
 my final idea is to either implement a life system that changes based on difficulty
 or change the ball's movement speed based on how big it is (bigger = slower)

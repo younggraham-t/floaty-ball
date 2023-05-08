@@ -12,6 +12,8 @@ struct Constants {
     
     static let OBJECT_MOVE_SPEED = 150.0
     static let DELTA_OBJECT_SPEED = 50.0
+    static let DELTA_BALL_SPEED = 25.0
+    static let COLLECTABLE_MAX_SPEED = OBJECT_MOVE_SPEED + (DELTA_OBJECT_SPEED * 5)
    
     static let COLLECTABLE_SHORT_AXIS_LENGTH = 15.0
     static let COLLECTABLE_LONG_AXIS_LENGTH = 20.0
@@ -21,11 +23,14 @@ struct Constants {
     static let PERCENT_BADDIES = 0.5
     static let COLLECTABLE_SPAWN_CHANCE = 0.05
     
-    static let DEFAULT_BALL_RADIUS = 10
+    static let DEFAULT_BALL_DIAMETER = 20
     static let BALL_SIZE_DELTA = 5
-    static let BALL_SIZE_MAX_DIAMETER = (DEFAULT_BALL_RADIUS + (BALL_SIZE_DELTA * 2)) * 2
+    static let BALL_SIZE_MAX_DIAMETER = (DEFAULT_BALL_DIAMETER + (BALL_SIZE_DELTA * 3))
+    static let BALL_SIZE_MIN_DIAMETER = (DEFAULT_BALL_DIAMETER - (BALL_SIZE_DELTA) * 2)
     
-    static let TOUCH_TOLERANCE = 75.0
+    static let MIN_BALL_SPEED = 25.0
+    
+    static let TOUCH_TOLERANCE = 50.0
 }
 
 enum NodeNames: String {
@@ -36,6 +41,8 @@ enum NodeNames: String {
 }
 
 enum Direction: CaseIterable {
-    case north, south, east, west
+    case north, south, east, west, northeast, northwest, southeast, southwest
   
 }
+
+
