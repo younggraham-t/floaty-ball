@@ -8,13 +8,12 @@
 import SpriteKit
 
 
-class ControlSettingsScene: SKScene, SceneWithDirectional {
+class ControlSettingsScene: SceneWithDirectional {
     
     private var controlMenu: ControlMenu = ControlMenu()
     
     var controlManager: ControlManager = ControlManager()
     
-    var directionals: Set<Directional> = Set()
     
     var presentingView: ControlView? {
         didSet {
@@ -32,17 +31,11 @@ class ControlSettingsScene: SKScene, SceneWithDirectional {
         
         controlManager.createDirectionals(in: self)
         
-//        print("control menu displayed \(controlMenu.isDisplayed)")
-//        print("control menu parent \(controlMenu.parent)")
+        //        print("control menu displayed \(controlMenu.isDisplayed)")
+        //        print("control menu parent \(controlMenu.parent)")
     }
     
-    func removeDirectionals() {
-        for directional in directionals {
-            directional.removeFromParent()
-        }
-        directionals.removeAll()
-        
-    }
+    
     
     func setControlPosition(for newControlPosition: ControlMenuActions) {
         removeDirectionals()
@@ -53,9 +46,7 @@ class ControlSettingsScene: SKScene, SceneWithDirectional {
         print(" after add \(directionals)")
     }
     
-    func addDirectional(_ directional: Directional) {
-        directionals.insert(directional)
-    }
+
 }
 
 

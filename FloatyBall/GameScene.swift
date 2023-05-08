@@ -7,12 +7,25 @@
 
 import SpriteKit
 
-protocol SceneWithDirectional {
-    func addDirectional(_ directional: Directional)
-    func removeDirectionals()
+class SceneWithDirectional: SKScene {
+    
+    
+    var directionals: Set<Directional> = Set()
+    
+    func addDirectional(_ directional: Directional) {
+        directionals.insert(directional)
+    }
+    func removeDirectionals() {
+        for directional in directionals {
+            directional.removeFromParent()
+        }
+        directionals.removeAll()
+        
+    }
 }
 
-class GameScene : SKScene, SKPhysicsContactDelegate, SceneWithDirectional {
+class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
+
     
     //------------------ Variables -------------------
     
@@ -26,7 +39,6 @@ class GameScene : SKScene, SKPhysicsContactDelegate, SceneWithDirectional {
     
     var touchesToDirectionals = [UITouch: Directional]()
     
-    var directionals = [Directional]()
     
 //    var score = 0
     var scoreLabel: SKLabelNode = SKLabelNode(text: "Score: 0")
@@ -374,16 +386,16 @@ class GameScene : SKScene, SKPhysicsContactDelegate, SceneWithDirectional {
         settingsMenu.zPosition = 1
     }
     
-    func addDirectional(_ directional: Directional) {
-        directionals.append(directional)
-    }
-    
-    func removeDirectionals() {
-        for directional in directionals {
-            directional.removeFromParent()
-        }
-        directionals.removeAll()
-    }
+//    func addDirectional(_ directional: Directional) {
+//        directionals.append(directional)
+//    }
+//
+//    func removeDirectionals() {
+//        for directional in directionals {
+//            directional.removeFromParent()
+//        }
+//        directionals.removeAll()
+//    }
 
     
     func setupVariables() {
@@ -399,7 +411,7 @@ class GameScene : SKScene, SKPhysicsContactDelegate, SceneWithDirectional {
         
         touchesToDirectionals = [UITouch: Directional]()
         
-        directionals = [Directional]()
+        directionals = Set<Directional>()
         
     //    var score = 0
         scoreLabel = SKLabelNode(text: "Score: 0")

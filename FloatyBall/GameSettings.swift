@@ -17,7 +17,6 @@ enum Difficulty: String, CaseIterable, Identifiable {
 class Settings: ObservableObject {
     
     var difficulty: Difficulty
-//    @Published var scoreManager: ScoreManager
     
     var collectableMoveSpeed: Double {
         let output = Constants.OBJECT_MOVE_SPEED
@@ -55,6 +54,7 @@ class Settings: ObservableObject {
             return output + 0.25
         }
     }
+    
     init(difficulty: Difficulty) {
         self.difficulty = difficulty
     }
