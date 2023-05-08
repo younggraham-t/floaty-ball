@@ -33,6 +33,8 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
     
     var presentingView: GameplayView? = nil
     
+    var ballSpeed: BallSpeed? = nil
+    
     var ball: Ball = Ball()
     
     var collectables = Set<CollectableObject>() //uses set to make removal easier (for memory management)
@@ -399,11 +401,17 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
 
     
     func setupVariables() {
+        
         pauseMenu.stopDisplayingIn(scene: self)
         for child in children {
             child.removeFromParent()
         }
-        ball = Ball()
+        if let ballSpeed = ballSpeed {
+            ball = Ball(speed: ballSpeed)
+        }
+        else {
+            ball = Ball()
+        }
         ball.position = CGPoint(x: frame.midX, y: frame.midY)
         self.addChild(ball)
         
@@ -419,6 +427,8 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
         collectablesCurrentSpeed = 0.0
         
         collectableTime = 0.0
+        
+        
         
         print(pauseMenu.isDisplayed)
     }

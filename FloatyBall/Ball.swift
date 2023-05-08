@@ -38,6 +38,24 @@ class Ball : SKShapeNode {
         
     }
     
+    convenience init(speed: BallSpeed) {
+        print("init speed ball")
+        self.init()
+        
+        
+        switch speed {
+        case .slow:
+            self.moveSpeed = Constants.OBJECT_MOVE_SPEED - 50
+        case .med:
+            self.moveSpeed = Constants.OBJECT_MOVE_SPEED
+        case .fast:
+            self.moveSpeed = Constants.OBJECT_MOVE_SPEED + 75
+        }
+        
+        print("move speed \(moveSpeed)")
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

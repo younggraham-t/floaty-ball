@@ -46,3 +46,10 @@ enum Direction: CaseIterable {
 }
 
 
+enum BallSpeed: String, CaseIterable, Identifiable {
+    case slow = "Slow"
+    case med = "Medium"
+    case fast = "Fast"
+    var id: Self { self }
+}
+
