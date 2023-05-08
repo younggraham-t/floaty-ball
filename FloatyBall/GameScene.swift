@@ -7,6 +7,11 @@
 
 import SpriteKit
 
+protocol SceneWithDirectional {
+    func addDirectional(_ directional: Directional)
+    func removeDirectionals()
+}
+
 class GameScene : SKScene, SKPhysicsContactDelegate, SceneWithDirectional {
     
     //------------------ Variables -------------------

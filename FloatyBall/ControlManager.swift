@@ -8,10 +8,7 @@
 import Foundation
 import SpriteKit
 
-protocol SceneWithDirectional {
-    func addDirectional(_ directional: Directional)
-    func removeDirectionals()
-}
+
 
 enum ControlPositionCasesNonDPad {
     case leftLeft, leftRight, leftUp, leftDown, rightLeft, rightRight, rightUp, rightDown
