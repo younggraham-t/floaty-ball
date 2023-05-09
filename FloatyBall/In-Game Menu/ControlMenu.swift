@@ -17,7 +17,7 @@ enum ControlMenuActions: String, MenuItemAction, CaseIterable, Codable {
     
     func preformAction(displayingScene: SKScene) {
         print("preform control menu action")
-        let controlScene = displayingScene as! ControlSettingsScene
+        let controlScene = displayingScene as! SceneWithDirectional
         
         controlScene.setControlPosition(for: self)
 //
@@ -46,6 +46,7 @@ class ControlMenu: InGameMenu<ControlMenuActions, ControlMenuItem> {
     private var backButton = SKLabelNode(text: "Back")
     
     var presentingView: ControlView? = nil
+    var gameScene: GameScene? = nil
     
     override init() {
         super.init()
@@ -62,7 +63,12 @@ class ControlMenu: InGameMenu<ControlMenuActions, ControlMenuItem> {
             if closeEnough(backButton, touch) {
                 print("touch back control menu")
 //                print("presenting view \(presentingView)")
-                presentingView?.dismiss()
+                if let presentingView = presentingView {
+                    presentingView.dismiss()
+                }
+                else if let gameScene = gameScene {
+                    gameScene.returnFromControlMenuToSettingsMenu()
+                }
             }
         }
     }

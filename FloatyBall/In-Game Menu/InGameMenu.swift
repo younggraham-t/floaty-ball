@@ -87,6 +87,9 @@ class InGameMenu<E, I>: SKNode where E:MenuItemAction, I:MenuItem<E> {
     
     func displayTo(scene: SKScene) {
         print("display to \(scene)")
+        if self.parent != nil {
+            self.removeFromParent()
+        }
         self.displayingScene = scene
         scene.addChild(self)
         self._isDisplayed = true
@@ -94,6 +97,7 @@ class InGameMenu<E, I>: SKNode where E:MenuItemAction, I:MenuItem<E> {
     
     func stopDisplayingIn(scene: SKScene) {
         if self.parent == scene {
+            print(self.isDisplayed)
             self.removeFromParent()
             self._isDisplayed = false
         }

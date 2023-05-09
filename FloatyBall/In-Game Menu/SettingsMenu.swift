@@ -11,7 +11,7 @@ import SpriteKit
 enum SettingsMenuItemAction: String, CaseIterable, MenuItemAction {
     
     case back = "Back"
-    case controls = "Controls (Not Implemented)"
+    case controls = "Controls"
     
     
     
@@ -23,7 +23,7 @@ enum SettingsMenuItemAction: String, CaseIterable, MenuItemAction {
             gameScene.returnFromSettingsToPauseMenu()
         case .controls:
             print("touch - settings controls")
-            gameScene.displayControlScene()
+            gameScene.displayControlMenu()
         case _:
             return
         }

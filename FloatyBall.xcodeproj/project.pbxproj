@@ -32,7 +32,7 @@
 		BF8AF7E129F17973009C9D3D /* up-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7DD29F17973009C9D3D /* up-arrow.png */; };
 		BF8AF7E329FA9D2A009C9D3D /* ScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */; };
 		BF8AF7E529FAABAF009C9D3D /* final-proposal.txt in Resources */ = {isa = PBXBuildFile; fileRef = BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */; };
-		BFF5BB402A02A564003BAEF8 /* ControlsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF5BB3F2A02A564003BAEF8 /* ControlsMenu.swift */; };
+		BFF5BB402A02A564003BAEF8 /* ControlMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF5BB3F2A02A564003BAEF8 /* ControlMenu.swift */; };
 		BFF5BB422A03ED82003BAEF8 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF5BB412A03ED82003BAEF8 /* ControlView.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +63,7 @@
 		BF8AF7DD29F17973009C9D3D /* up-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "up-arrow.png"; sourceTree = "<group>"; };
 		BF8AF7E229FA9D2A009C9D3D /* ScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreManager.swift; sourceTree = "<group>"; };
 		BF8AF7E429FAABAE009C9D3D /* final-proposal.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "final-proposal.txt"; sourceTree = "<group>"; };
-		BFF5BB3F2A02A564003BAEF8 /* ControlsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsMenu.swift; sourceTree = "<group>"; };
+		BFF5BB3F2A02A564003BAEF8 /* ControlMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlMenu.swift; sourceTree = "<group>"; };
 		BFF5BB412A03ED82003BAEF8 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,7 +149,7 @@
 				BF06097929FDDFCA008577C9 /* PauseMenu.swift */,
 				BF06097B29FDF0F2008577C9 /* PauseButton.swift */,
 				BF3F9B5D2A015990006E44CC /* SettingsMenu.swift */,
-				BFF5BB3F2A02A564003BAEF8 /* ControlsMenu.swift */,
+				BFF5BB3F2A02A564003BAEF8 /* ControlMenu.swift */,
 			);
 			path = "In-Game Menu";
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 				BF8AF7D729F16847009C9D3D /* Directional.swift in Sources */,
 				BF06097629FD6F1F008577C9 /* GameSettings.swift in Sources */,
 				BF3F9B602A0160F1006E44CC /* ControlSettingsScene.swift in Sources */,
-				BFF5BB402A02A564003BAEF8 /* ControlsMenu.swift in Sources */,
+				BFF5BB402A02A564003BAEF8 /* ControlMenu.swift in Sources */,
 				BF20553B29E835CE00B7392B /* FloatyBallApp.swift in Sources */,
 				BF06097A29FDDFCA008577C9 /* PauseMenu.swift in Sources */,
 				BF20555129E840ED00B7392B /* Collectable.swift in Sources */,

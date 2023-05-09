@@ -11,6 +11,7 @@ class SceneWithDirectional: SKScene {
     
     
     var directionals: Set<Directional> = Set()
+    var controlManager: ControlManager? = nil
     
     func addDirectional(_ directional: Directional) {
         directionals.insert(directional)
@@ -21,6 +22,14 @@ class SceneWithDirectional: SKScene {
         }
         directionals.removeAll()
         
+    }
+    func setControlPosition(for newControlPosition: ControlMenuActions) {
+        removeDirectionals()
+        print("after remove \(directionals)")
+        print("after remove \(children)")
+        controlManager?.changeControls(to: newControlPosition)
+        controlManager?.createDirectionals(in: self)
+        print(" after add \(directionals)")
     }
 }
 
@@ -61,18 +70,22 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
     var pauseButton: PauseButton = PauseButton()
     
     var settingsMenu = SettingsMenu()
+    
+    var controlMenu = ControlMenu()
 
     // ------------------- Updates --------------------
     
     
     
     override func update(_ currentTime: TimeInterval) {
+//        print("update \(pauseMenu.isDisplayed)")
         if pauseMenu.isDisplayed {
             for collectable in collectables {
                 collectable.stopMovement()
             }
             return
         }
+//        print("update \(pauseMenu.isDisplayed)")
         
         if collectableTime == 0.0 {
             collectableTime = currentTime
@@ -343,8 +356,10 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
     }
         
     func remove(node: SKNode) {
-
-        node.removeFromParent()
+        if node.parent != nil {
+            node.removeFromParent()
+        }
+        
     }
 
     
@@ -353,6 +368,7 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
 
     override func didMove(to view: SKView) {
         print("did move")
+        self.name = "game scene"
         view.isMultipleTouchEnabled = true
         setupGame()
         
@@ -371,7 +387,7 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
         scoreLabel.zPosition = 1
         addChild(scoreLabel)
         
-        controlScene?.controlManager.createDirectionals(in: self)
+        controlManager?.createDirectionals(in: self)
         
         pauseButton.position = CGPoint(x: frame.minX + 50, y: frame.maxY - 50)
         pauseButton.name = NodeNames.button.rawValue
@@ -386,6 +402,9 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
 //        settingsMenu.displayingScene = self
         settingsMenu.position = CGPoint(x: frame.midX, y: frame.midY)
         settingsMenu.zPosition = 1
+        
+        controlMenu.position = CGPoint(x: frame.midX, y: frame.midY)
+        controlMenu.zPosition = 1
     }
     
 //    func addDirectional(_ directional: Directional) {
@@ -447,9 +466,11 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
     
    
     
+    
     func pauseGame() {
         print("pause game")
         remove(node: pauseButton)
+        
 //        print(pauseMenu.parent)
 //        pauseMenu.move(toParent: self)
         pauseMenu.displayTo(scene: self)
@@ -465,7 +486,7 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
     }
     
     func resumeGame() {
-        remove(node: pauseMenu)
+//        remove(node: pauseButton)
         addChild(pauseButton)
         
         pauseMenu.stopDisplayingIn(scene: self)
@@ -484,6 +505,7 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
         }
         ball.strokeColor = .white
         ball.fillColor = .blue
+        print("resume \(pauseMenu.isDisplayed)")
     }
     
     func displaySettingsMenu() {
@@ -501,7 +523,28 @@ class GameScene : SceneWithDirectional, SKPhysicsContactDelegate {
         settingsMenu.stopDisplayingIn(scene: self)
     }
     
-    func displayControlScene() {
+    func displayControlMenu() {
+        guard settingsMenu.isDisplayed else { return }
+        controlMenu.presentingView = nil
+        controlMenu.gameScene = self
         
+        remove(node: settingsMenu)
+        addChild(controlMenu)
+        for directional in directionals {
+            addChild(directional)
+        }
+//        print(controlMenu.parent)
+        controlMenu.displayTo(scene: self)
+    }
+    
+    func returnFromControlMenuToSettingsMenu() {
+        guard controlMenu.isDisplayed else { return }
+        remove(node: controlMenu)
+        addChild(settingsMenu)
+
+        for directional in directionals {
+            remove(node: directional)
+        }
+        controlMenu.stopDisplayingIn(scene: self)
     }
 }

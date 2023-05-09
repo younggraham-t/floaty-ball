@@ -16,14 +16,17 @@ struct GameplayView: View {
     
     var difficulty: Difficulty
     
-    var controlScene: ControlSettingsScene
+    var controlManager: ControlManager
     
     var ballSpeed: BallSpeed
     
     init(_ parameters: GameplayViewParameters) {
         self.highScore = parameters.highScore
         self.difficulty = parameters.difficulty
-        self.controlScene = parameters.controlScene
+        self.controlManager = parameters.controlManager
+        
+        
+        
         self.ballSpeed = parameters.ballSpeed
     }
     
@@ -31,12 +34,14 @@ struct GameplayView: View {
     
     var gameScene: GameScene {
         let gameScene = GameScene()
+        
         gameScene.scaleMode = .resizeFill
         gameScene.presentingView = self
         gameScene.highScore = highScore
         gameScene.settings = Settings(difficulty: difficulty)
-        gameScene.controlScene = controlScene
+        gameScene.controlManager = controlManager
         gameScene.ballSpeed = ballSpeed
+        
         return gameScene
     }
     

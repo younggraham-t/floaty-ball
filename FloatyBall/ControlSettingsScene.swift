@@ -10,10 +10,16 @@ import SpriteKit
 
 class ControlSettingsScene: SceneWithDirectional {
     
-    private var controlMenu: ControlMenu = ControlMenu()
+    var controlMenu: ControlMenu = ControlMenu()
     
-    var controlManager: ControlManager = ControlManager()
     
+    
+  
+    var gameScene: GameScene? {
+        didSet {
+            controlMenu.gameScene = gameScene
+        }
+    }
     
     var presentingView: ControlView? {
         didSet {
@@ -25,11 +31,14 @@ class ControlSettingsScene: SceneWithDirectional {
         
         print("control scene - didMove")
         self.name = "control scene"
+        for child in children {
+            child.removeFromParent()
+        }
         controlMenu.position = CGPoint(x: frame.midX, y: frame.midY + 50)
         controlMenu.presentingView = presentingView
         controlMenu.displayTo(scene: self)
         
-        controlManager.createDirectionals(in: self)
+        controlManager?.createDirectionals(in: self)
         
         //        print("control menu displayed \(controlMenu.isDisplayed)")
         //        print("control menu parent \(controlMenu.parent)")
@@ -37,14 +46,7 @@ class ControlSettingsScene: SceneWithDirectional {
     
     
     
-    func setControlPosition(for newControlPosition: ControlMenuActions) {
-        removeDirectionals()
-        print("after remove \(directionals)")
-        print("after remove \(children)")
-        controlManager.changeControls(to: newControlPosition)
-        controlManager.createDirectionals(in: self)
-        print(" after add \(directionals)")
-    }
+    
     
 
 }

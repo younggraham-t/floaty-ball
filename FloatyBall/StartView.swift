@@ -12,7 +12,7 @@ struct GameplayViewParameters {
     var highScore: ScoreManager
     var difficulty: Difficulty
     var ballSpeed: BallSpeed
-    var controlScene: ControlSettingsScene
+    var controlManager: ControlManager
 }
 
 struct StartView: View {
@@ -23,10 +23,11 @@ struct StartView: View {
     @State var ballSpeed: BallSpeed = .med
     @ObservedObject var highScore: ScoreManager = ScoreManager()
     
+    var controlManager = ControlManager()
 
+    
 
-    var controlView = ControlView()
-
+    
 
 //    var body: some View {
 //        ControlView()
@@ -84,11 +85,11 @@ struct StartView: View {
         .font(.title)
         .padding()
         .fullScreenCover(isPresented: $isGameplayViewPresented) {
-            GameplayView(GameplayViewParameters(highScore: highScore, difficulty: highScore.difficulty, ballSpeed: ballSpeed, controlScene: controlView.controlScene))
+            GameplayView(GameplayViewParameters(highScore: highScore, difficulty: highScore.difficulty, ballSpeed: ballSpeed, controlManager: controlManager))
             
         }
         .fullScreenCover(isPresented: $isControlViewPresented) {
-            controlView
+            ControlView(controlManager: controlManager)
         }
         .pickerStyle(.segmented)
 
