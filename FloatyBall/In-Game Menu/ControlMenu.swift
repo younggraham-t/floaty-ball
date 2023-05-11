@@ -19,21 +19,11 @@ enum ControlMenuActions: String, MenuItemAction, CaseIterable, Codable {
         print("preform control menu action")
         let controlScene = displayingScene as! SceneWithDirectional
         
-        controlScene.setControlPosition(for: self)
-//
-//        // TODO: this switch should be removed once all cases exist in controlManager
-//        switch self {
-//        case .dPadLeft:
-//            print("d-pad left")
-//        case .dPadRight:
-//            print("d-pad right")
-//        case .horizontalLeft:
-//            controlScene.setControlPosition(for: self)
-//        case .horizontalRight:
-//            controlScene.setControlPosition(for: self)
-//        case _:
-//            return
-//        }
+        switch self {
+        case _:
+            controlScene.setControlPosition(for: self)
+        }
+        
     }
     
     
